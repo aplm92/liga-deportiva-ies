@@ -1,0 +1,151 @@
+    <!-- Contenido Principal -->
+    <main class="container my-5 pt-4">
+        <h1 class="text-center mb-5">Contacto</h1>
+        
+        <div class="row g-4">
+            <!-- Formulario de Contacto -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-envelope me-2"></i>Envíanos un Mensaje</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="formContacto">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="asunto" class="form-label">Asunto</label>
+                                <select class="form-select" id="asunto" required>
+                                    <option value="">Seleccione un asunto</option>
+                                    <option value="inscripcion">Inscripción de Equipos</option>
+                                    <option value="informacion">Información General</option>
+                                    <option value="resultados">Consulta sobre Resultados</option>
+                                    <option value="arbitraje">Información sobre Arbitraje</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="5" required></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-lg btn-animated" onclick="enviarContacto()">
+                                <i class="bi bi-send me-2"></i>Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de Contacto y FAQs -->
+            <div class="col-lg-4">
+                <!-- Información de Contacto -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Información de Contacto</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><i class="bi bi-envelope me-2 text-primary"></i><strong>Email:</strong><br>ligadeportiva@maestrecaltrava.es</p>
+                        <p><i class="bi bi-telephone me-2 text-primary"></i><strong>Teléfono:</strong><br>+34 123 456 789</p>
+                        <p><i class="bi bi-clock me-2 text-primary"></i><strong>Horario:</strong><br>Lunes a Viernes<br>9:00 - 14:00</p>
+                        <p><i class="bi bi-geo-alt me-2 text-primary"></i><strong>Dirección:</strong><br>IES Maestre de Calatrava<br>Paseo de la Universidad, 1<br>13005 Ciudad Real</p>
+                    </div>
+                </div>
+
+                <!-- Preguntas Frecuentes -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-question-circle me-2"></i>Preguntas Frecuentes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionFAQ">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        ¿Cómo puedo inscribir mi equipo?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                    <div class="accordion-body">
+                                        Puedes inscribir tu equipo completando el formulario de inscripción disponible en la página principal. El período de inscripción está abierto hasta el 31 de enero.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        ¿Cuántos jugadores puede tener un equipo?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                    <div class="accordion-body">
+                                        El número de jugadores varía según el deporte: Fútbol (16-18), Baloncesto (10-12), Balonmano (12-14), Voleibol (10-12).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        ¿Dónde se juegan los partidos?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                    <div class="accordion-body">
+                                        Los partidos se disputan en las instalaciones deportivas del instituto. Los horarios y ubicaciones específicas se publican en la sección de resultados.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        ¿Cómo puedo consultar los resultados?
+                                    </button>
+                                </h2>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                    <div class="accordion-body">
+                                        Los resultados se actualizan en tiempo real en la sección de Resultados. Puedes filtrar por competición y jornada para encontrar la información que buscas.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                        ¿Puedo ser árbitro?
+                                    </button>
+                                </h2>
+                                <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
+                                    <div class="accordion-body">
+                                        Sí, estamos siempre buscando nuevos árbitros. Contacta con nosotros a través del formulario de contacto indicando tu interés en el arbitraje.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastContacto" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto">Mensaje Enviado</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                Tu mensaje ha sido enviado correctamente. Te responderemos en breve.
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/contacto.js"></script>

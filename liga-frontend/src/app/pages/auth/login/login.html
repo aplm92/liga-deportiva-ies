@@ -1,0 +1,18 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3>Iniciar sesión</h3>
+      <form (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label>Usuario</label>
+          <input [(ngModel)]="usuario" name="usuario" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label>Contraseña</label>
+          <input [(ngModel)]="password" name="password" type="password" class="form-control" required>
+        </div>
+        <button class="btn btn-primary">Entrar</button>
+      </form>
+    </div>
+  </div>
+</div>
