@@ -1,321 +1,184 @@
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="display-4 fw-bold text-white mb-4">Liga Deportiva IES Maestre de Calatrava</h1>
-                    <p class="lead text-white mb-4">Competición, pasión y deporte. Únete a la mejor liga estudiantil de la región.</p>
-                    <a href="#competiciones" class="btn btn-light btn-lg btn-animated">
-                        <i class="bi bi-arrow-down-circle me-2"></i>Ver Competiciones
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6 text-center text-lg-start">
+        <h1 class="display-4 fw-bold text-white mb-4">
+          Liga Deportiva IES Maestre de Calatrava
+        </h1>
+        <p class="lead text-white mb-4">
+          Competición, pasión y deporte. Únete a la mejor liga estudiantil de la región.
+        </p>
+        <a href="#competiciones" class="btn btn-light btn-lg btn-animated">
+          <i class="bi bi-arrow-down-circle me-2"></i>Ver Competiciones
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Carrusel de Noticias -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Noticias Recientes</h2>
-            <div id="noticiasCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#noticiasCarousel" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#noticiasCarousel" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#noticiasCarousel" data-bs-slide-to="2"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="card mx-auto" style="max-width: 600px;">
-                            <img src="assets/images/ligadeportiva.JPG" class="card-img-top" alt="Noticia 1">
-                            <div class="card-body">
-                                <h5 class="card-title">Inicio de la Temporada 2024</h5>
-                                <p class="card-text">La Liga Deportiva del IES Maestre de Calatrava da comienzo a una nueva temporada llena de emociones y competición...</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNoticia1">Leer más</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card mx-auto" style="max-width: 600px;">
-                            <img src="assets/images/ligadeportiva2.JPG" class="card-img-top" alt="Noticia 2">
-                            <div class="card-body">
-                                <h5 class="card-title">Nuevos Equipos Inscritos</h5>
-                                <p class="card-text">Este año contamos con más equipos que nunca. Descubre quiénes se han unido a la competición...</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNoticia2">Leer más</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card mx-auto" style="max-width: 600px;">
-                            <img src="assets/images/ligadeportiva3.JPG" class="card-img-top" alt="Noticia 3">
-                            <div class="card-body">
-                                <h5 class="card-title">Campeonato de Baloncesto</h5>
-                                <p class="card-text">El campeonato de baloncesto está llegando a su fase final. No te pierdas los partidos decisivos...</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNoticia3">Leer más</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#noticiasCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#noticiasCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
-            </div>
-            <div class="text-center mt-3">
-                <small class="text-muted">Diapositiva <span id="contadorCarousel">1</span> de 3</small>
-            </div>
-        </div>
-    </section>
+<!-- Carrusel de Noticias -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">Noticias Recientes</h2>
+    <div id="noticiasCarousel" class="carousel slide" data-bs-ride="carousel" (slide.bs.carousel)="onSlide($event)">
+      <div class="carousel-indicators">
+        <button *ngFor="let n of noticias; let i = index" type="button"
+                data-bs-target="#noticiasCarousel" [attr.data-bs-slide-to]="i"
+                [class.active]="i === 0">
+        </button>
+      </div>
 
-    <!-- Modales de Noticias -->
-    <div class="modal fade" id="modalNoticia1" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Inicio de la Temporada 2025</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="assets/images/ligadeportiva.JPG" class="img-fluid mb-3" alt="Noticia 1">
-                    <p class="text-muted"><small>Publicado el 15 de Enero de 2025</small></p>
-                    <p>La Liga Deportiva del Instituto da comienzo a una nueva temporada llena de emociones y competición. Este año contamos con más de 50 equipos inscritos en las diferentes modalidades deportivas.</p>
-                    <p>Las competiciones comenzarán el próximo mes de febrero y se extenderán hasta finales de mayo. Durante este período, los equipos competirán en fútbol, baloncesto, balonmano, voleibol y tenis.</p>
-                    <p>Los horarios y calendarios completos estarán disponibles en la sección de resultados. ¡No te pierdas ningún partido!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+      <div class="carousel-inner">
+        <div *ngFor="let noticia of noticias; let i = index" class="carousel-item" [class.active]="i === 0">
+          <div class="card mx-auto" style="max-width: 600px;">
+            <img [src]="noticia.imagen" class="card-img-top" [alt]="noticia.titulo">
+            <div class="card-body">
+              <h5 class="card-title">{{noticia.titulo}}</h5>
+              <p class="card-text">{{noticia.descripcion}}</p>
+              <button class="btn btn-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#modalNoticia' + noticia.id">
+                Leer más
+              </button>
             </div>
+          </div>
         </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#noticiasCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#noticiasCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
     </div>
 
-    <div class="modal fade" id="modalNoticia2" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Nuevos Equipos Inscritos</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="assets/images/ligadeportiva2.JPG" class="img-fluid mb-3" alt="Noticia 2">
-                    <p class="text-muted"><small>Publicado el 10 de Enero de 2025</small></p>
-                    <p>Este año contamos con más equipos que nunca. Se han inscrito 12 nuevos equipos en diferentes modalidades deportivas, lo que demuestra el creciente interés por el deporte en nuestro instituto.</p>
-                    <p>Entre los nuevos equipos destacan "Los Halcones" en fútbol, "Thunder" en baloncesto y "Los Lobos" en balonmano. Todos ellos están listos para competir y dar lo mejor de sí mismos.</p>
-                    <p>La inscripción sigue abierta hasta el 31 de enero. Si estás interesado en formar parte de la liga, visita nuestra sección de contacto para más información.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
+    <div class="text-center mt-3">
+      <small class="text-muted">Diapositiva {{contadorCarousel}} de {{noticias.length}}</small>
     </div>
+  </div>
+</section>
 
-    <div class="modal fade" id="modalNoticia3" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Campeonato de Baloncesto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="assets/images/ligadeportiva3.JPG" class="img-fluid mb-3" alt="Noticia 3">
-                    <p class="text-muted"><small>Publicado el 5 de Enero de 2025</small></p>
-                    <p>El campeonato de baloncesto está llegando a su fase final. Los equipos han demostrado un nivel excepcional durante toda la temporada, y ahora se enfrentan a los partidos más decisivos.</p>
-                    <p>Las semifinales se disputarán el próximo fin de semana en el pabellón principal del instituto. Los equipos clasificados son: "Thunder", "Los Leones", "Aguilas" y "Titans".</p>
-                    <p>La final está programada para el último sábado de febrero. ¡No te pierdas estos emocionantes encuentros!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+<!-- Modales de Noticias -->
+<div *ngFor="let noticia of noticias">
+  <div class="modal fade" [id]="'modalNoticia' + noticia.id" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{noticia.titulo}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
+        <div class="modal-body">
+          <img [src]="noticia.imagen" class="img-fluid mb-3" [alt]="noticia.titulo">
+          <p class="text-muted"><small>Publicado el {{formatearFecha(noticia.fecha)}}</small></p>
+          <p>{{noticia.descripcion}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Sección de Competiciones -->
-    <section id="competiciones" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Nuestras Competiciones</h2>
-            <div class="row g-4">
-                <!-- Balonmano -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoBalonmano.jpg" alt="Balonmano" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Balonmano</h5>
-                            <p class="card-text">Torneo de balonmano con 10 equipos participantes.</p>
-                            <a routerLink="/equipos?deporte=balonmano" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fútbol -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoFutbol.jpg" alt="Fútbol" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Fútbol</h5>
-                            <p class="card-text">Competición de fútbol 11 con 16 equipos participantes.</p>
-                            <a routerLink="/equipos?deporte=futbol" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Baloncesto -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoBaloncesto.jpg" alt="Baloncesto" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Baloncesto</h5>
-                            <p class="card-text">Liga de baloncesto con 12 equipos en competición.</p>
-                            <a routerLink="/equipos?deporte=baloncesto" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Voleibol -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoVoleibol.jpg" alt="Voleibol" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Voleibol</h5>
-                            <p class="card-text">Competición de voleibol con 8 equipos mixtos.</p>
-                            <a routerLink="/equipos?deporte=voleibol" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Tenis -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoTenis.jpg" alt="Tenis" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Tenis</h5>
-                            <p class="card-text">Torneo de tenis individual y dobles.</p>
-                            <a routerLink="/equipos?deporte=tenis" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Atletismo -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoAtletismo.jpg" alt="Atletismo" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Atletismo</h5>
-                            <p class="card-text">Competición de atletismo con múltiples disciplinas.</p>
-                            <a routerLink="/equipos?deporte=atletismo" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Natación -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoNatacion.jpg" alt="Natación" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Natación</h5>
-                            <p class="card-text">Competición de natación en diferentes estilos.</p>
-                            <a routerLink="/equipos?deporte=natacion" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pádel -->
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 card-hover deporte-card">
-                        <img src="assets/images/logoPadel.jpg" alt="Pádel" class="deporte-imagen">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Pádel</h5>
-                            <p class="card-text">Torneo de pádel en parejas.</p>
-                            <a routerLink="/equipos?deporte=padel" class="btn btn-primary btn-animated">Ver Equipos</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Sección de Competiciones -->
+<section id="competiciones" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Nuestras Competiciones</h2>
+    <div class="row g-4">
+      <div *ngFor="let deporte of deportes" class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100 card-hover deporte-card">
+          <img [src]="deporte.imagen" [alt]="deporte.nombre" class="deporte-imagen">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{deporte.nombre}}</h5>
+            <p class="card-text">{{deporte.descripcion}}</p>
+            <button [routerLink]="'/equipos'" class="btn btn-primary">Ver equipos</button>
+          </div>
         </div>
-    </section>
-
-    <!-- Sección de Información Importante -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Información Importante</h2>
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-calendar-check me-2"></i>Inscripciones</h5>
-                            <p class="card-text">El período de inscripción para nuevas temporadas está abierto hasta el 31 de enero. Los equipos deben completar el formulario de inscripción y presentar la documentación requerida.</p>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInscripcion">Más Información</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-info-circle me-2"></i>Seguimiento de la Liga</h5>
-                            <p class="card-text">Puedes seguir todos los partidos en directo a través de nuestra web. Consulta resultados, clasificaciones y estadísticas en tiempo real.</p>
-                            <a href="resultados.html" class="btn btn-primary">Ver Resultados</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal de Inscripción -->
-    <div class="modal fade" id="modalInscripcion" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Formulario de Inscripción</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formInscripcion">
-                        <div class="mb-3">
-                            <label for="nombreEquipo" class="form-label">Nombre del Equipo</label>
-                            <input type="text" class="form-control" id="nombreEquipo" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="deporte" class="form-label">Deporte</label>
-                            <select class="form-select" id="deporte" required>
-                                <option value="">Seleccione un deporte</option>
-                                <option value="balonmano">Balonmano</option>
-                                <option value="futbol">Fútbol</option>
-                                <option value="baloncesto">Baloncesto</option>
-                                <option value="voleibol">Voleibol</option>
-                                <option value="tenis">Tenis</option>
-                                <option value="atletismo">Atletismo</option>
-                                <option value="natacion">Natación</option>
-                                <option value="padel">Pádel</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="capitan" class="form-label">Nombre del Capitán</label>
-                            <input type="text" class="form-control" id="capitan" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="emailInscripcion" class="form-label">Email de Contacto</label>
-                            <input type="email" class="form-control" id="emailInscripcion" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="telefono" class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" id="telefono" required>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="enviarInscripcion()">Enviar Inscripción</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Toast Container -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="toastInscripcion" class="toast" role="alert">
-            <div class="toast-header">
-                <i class="bi bi-check-circle-fill text-success me-2"></i>
-                <strong class="me-auto">Inscripción Enviada</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-            </div>
-            <div class="toast-body">
-                Tu solicitud de inscripción ha sido enviada correctamente. Te contactaremos pronto.
-            </div>
+<!-- Sección de Información Importante y Formulario de Inscripción -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">Información Importante</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-calendar-check me-2"></i>Inscripciones</h5>
+            <p class="card-text">El período de inscripción para nuevas temporadas está abierto hasta el 31 de enero. Los equipos deben completar el formulario de inscripción y presentar la documentación requerida.</p>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInscripcion">Más Información</button>
+          </div>
         </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-info-circle me-2"></i>Seguimiento de la Liga</h5>
+            <p class="card-text">Puedes seguir todos los partidos en directo a través de nuestra web. Consulta resultados, clasificaciones y estadísticas en tiempo real.</p>
+            <a routerLink="/resultados" class="btn btn-primary">Ver Resultados</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- Modal de Inscripción -->
+<div class="modal fade" id="modalInscripcion" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Formulario de Inscripción</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form #inscripcionForm="ngForm" (ngSubmit)="enviarInscripcion(inscripcionForm)">
+          <div class="mb-3">
+            <label for="nombreEquipo" class="form-label">Nombre del Equipo</label>
+            <input type="text" class="form-control" id="nombreEquipo" required [(ngModel)]="inscripcion.nombreEquipo" name="nombreEquipo">
+          </div>
+          <div class="mb-3">
+            <label for="deporte" class="form-label">Deporte</label>
+            <select class="form-select" id="deporte" required [(ngModel)]="inscripcion.deporte" name="deporte">
+              <option value="">Seleccione un deporte</option>
+              <option *ngFor="let d of deportes" [value]="d.nombre">{{d.nombre}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="capitan" class="form-label">Nombre del Capitán</label>
+            <input type="text" class="form-control" id="capitan" required [(ngModel)]="inscripcion.capitan" name="capitan">
+          </div>
+          <div class="mb-3">
+            <label for="emailInscripcion" class="form-label">Email de Contacto</label>
+            <input type="email" class="form-control" id="emailInscripcion" required [(ngModel)]="inscripcion.email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="telefono" required [(ngModel)]="inscripcion.telefono" name="telefono">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Enviar Inscripción</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast de Confirmación -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div #toastInscripcion class="toast" role="alert">
+    <div class="toast-header">
+      <i class="bi bi-check-circle-fill text-success me-2"></i>
+      <strong class="me-auto">Inscripción Enviada</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">
+      Tu solicitud de inscripción ha sido enviada correctamente. Te contactaremos pronto.
+    </div>
+  </div>
+</div>

@@ -24,6 +24,7 @@ interface Equipo {
   templateUrl: './equipos.html',
   styleUrls: ['./equipos.scss']
 })
+
 export class Equipos {
   filtroCompeticion: string = '';
   busqueda: string = '';
@@ -318,7 +319,16 @@ export class Equipos {
         partidosEmpatados: 0,
         partidosPerdidos: 3 }
       }
-  imagenesDeportes: Record<string, string> = { /* tus imágenes aquí */ };
+  imagenesDeportes: { [key: string]: string } = {
+  futbol: 'assets/images/logoFutbol.jpg',
+  baloncesto: 'assets/images/logoBaloncesto.jpg',
+  balonmano: 'assets/images/logoBalonmano.jpg',
+  voleibol: 'assets/images/logoVoleibol.jpg',
+  tenis: 'assets/images/logoTenis.jpg',
+  atletismo: 'assets/images/logoAtletismo.jpg',
+  natacion: 'assets/images/logoNatacion.jpg',
+  padel: 'assets/images/logoPadel.jpg'
+};
 
   equipoDetalle?: Equipo;
 

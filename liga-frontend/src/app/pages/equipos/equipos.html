@@ -28,7 +28,7 @@
   <div class="row" id="equiposContainer">
     <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let item of equiposFiltrados | keyvalue">
       <div class="card h-100 card-hover">
-        <img [src]="imagenesDeportes[item.value.competicion]" [alt]="item.value.competicion" class="deporte-imagen">
+        <img [src]="imagenesDeportes[item.value.competicion.toLowerCase()]" [alt]="item.value.competicion" class="deporte-imagen">
         <div class="card-body text-center">
           <h5 class="card-title">{{ item.value.nombre }}</h5>
           <p class="card-text text-muted">{{ item.value.competicion }}</p>
