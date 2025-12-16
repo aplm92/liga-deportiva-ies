@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class Header {
 
+  menuAbierto = false;
+
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
+  cerrarMenu() {
+    this.menuAbierto = false;
+  }
 }
