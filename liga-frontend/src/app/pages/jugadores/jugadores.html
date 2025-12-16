@@ -1,492 +1,137 @@
+<div class="container my-5">
+  <h1 class="text-center mb-5">Jugadores</h1>
 
-    <!-- Contenido Principal -->
-    <main class="container my-5 pt-4">
-        <h1 class="text-center mb-4">Jugadores</h1>
-        
-        <!-- Filtros y Búsqueda -->
-        <div class="filter-section mb-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="filtroCompeticion" class="form-label">Filtrar por Competición</label>
-                    <select class="form-select" id="filtroCompeticion" onchange="filtrarJugadores()">
-                        <option value="">Todas las competiciones</option>
-                        <option value="balonmano">Balonmano</option>
-                        <option value="futbol">Fútbol</option>
-                        <option value="baloncesto">Baloncesto</option>
-                        <option value="voleibol">Voleibol</option>
-                        <option value="tenis">Tenis</option>
-                        <option value="atletismo">Atletismo</option>
-                        <option value="natacion">Natación</option>
-                        <option value="padel">Pádel</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="filtroEquipo" class="form-label">Filtrar por Equipo</label>
-                    <select class="form-select" id="filtroEquipo" onchange="filtrarJugadores()">
-                        <option value="">Todos los equipos</option>
-                        <option value="halcones">Los Halcones</option>
-                        <option value="leones">Los Leones</option>
-                        <option value="thunder">Thunder</option>
-                        <option value="aguilas">Aguilas</option>
-                        <option value="lobos">Los Lobos</option>
-                        <option value="guerreras">Las Guerreras</option>
-                        <option value="hispanos">Los Hispanos</option>
-                        <option value="titans">Titans</option>
-                        <option value="raquetas">Raquetas Elite</option>
-                        <option value="veloces">Los Veloces</option>
-                        <option value="delfines">Los Delfines</option>
-                        <option value="palas">Palas Pro</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="buscarJugador" class="form-label">Buscar por Nombre</label>
-                    <div class="search-box">
-                        <input type="text" class="form-control" id="buscarJugador" placeholder="Nombre del jugador..." onkeyup="filtrarJugadores()">
-                        <i class="bi bi-search"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Listado de Jugadores -->
-        <div class="row g-4" id="listaJugadores">
-            <!-- Jugador 1 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="futbol" data-equipo="halcones">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Juan Pérez</h5>
-                        <p class="card-text text-muted">Los Halcones</p>
-                        <p class="card-text"><strong>Posición:</strong> Portero</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('juan-perez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 2 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="futbol" data-equipo="halcones">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Miguel Torres</h5>
-                        <p class="card-text text-muted">Los Halcones</p>
-                        <p class="card-text"><strong>Posición:</strong> Defensa</p>
-                        <p class="card-text"><strong>Número:</strong> 2</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('miguel-torres')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 3 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="futbol" data-equipo="leones">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Carlos García</h5>
-                        <p class="card-text text-muted">Los Leones</p>
-                        <p class="card-text"><strong>Posición:</strong> Portero</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('carlos-garcia')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 4 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="baloncesto" data-equipo="thunder">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Ana Martínez</h5>
-                        <p class="card-text text-muted">Thunder</p>
-                        <p class="card-text"><strong>Posición:</strong> Base</p>
-                        <p class="card-text"><strong>Número:</strong> 5</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('ana-martinez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 5 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="baloncesto" data-equipo="aguilas">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Luis Rodríguez</h5>
-                        <p class="card-text text-muted">Aguilas</p>
-                        <p class="card-text"><strong>Posición:</strong> Base</p>
-                        <p class="card-text"><strong>Número:</strong> 4</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('luis-rodriguez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 6 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="lobos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">María López</h5>
-                        <p class="card-text text-muted">Los Lobos</p>
-                        <p class="card-text"><strong>Posición:</strong> Portero</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('maria-lopez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 7 -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="voleibol" data-equipo="titans">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Pedro Sánchez</h5>
-                        <p class="card-text text-muted">Titans</p>
-                        <p class="card-text"><strong>Posición:</strong> Colocador</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('pedro-sanchez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 8 - Tenis -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="tenis" data-equipo="raquetas">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Carlos Nadal</h5>
-                        <p class="card-text text-muted">Raquetas Elite</p>
-                        <p class="card-text"><strong>Posición:</strong> Individual</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('carlos-nadal')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 9 - Atletismo -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="atletismo" data-equipo="veloces">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Miguel Bolt</h5>
-                        <p class="card-text text-muted">Los Veloces</p>
-                        <p class="card-text"><strong>Posición:</strong> Velocista</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('miguel-bolt')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 10 - Natación -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="natacion" data-equipo="delfines">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Laura Phelps</h5>
-                        <p class="card-text text-muted">Los Delfines</p>
-                        <p class="card-text"><strong>Posición:</strong> Estilo Libre</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('laura-phelps')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 11 - Pádel -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="padel" data-equipo="palas">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Pablo Pareja</h5>
-                        <p class="card-text text-muted">Palas Pro</p>
-                        <p class="card-text"><strong>Posición:</strong> Pareja A</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('pablo-pareja')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 12 - Fútbol -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="futbol" data-equipo="halcones">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Sergio Ramos</h5>
-                        <p class="card-text text-muted">Los Halcones</p>
-                        <p class="card-text"><strong>Posición:</strong> Defensa</p>
-                        <p class="card-text"><strong>Número:</strong> 3</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('sergio-ramos')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 13 - Fútbol -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="futbol" data-equipo="halcones">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">David Silva</h5>
-                        <p class="card-text text-muted">Los Halcones</p>
-                        <p class="card-text"><strong>Posición:</strong> Centrocampista</p>
-                        <p class="card-text"><strong>Número:</strong> 8</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('david-silva')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 14 - Baloncesto -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="baloncesto" data-equipo="thunder">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Laura Fernández</h5>
-                        <p class="card-text text-muted">Thunder</p>
-                        <p class="card-text"><strong>Posición:</strong> Alero</p>
-                        <p class="card-text"><strong>Número:</strong> 7</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('laura-fernandez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 15 - Baloncesto -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="baloncesto" data-equipo="thunder">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Carmen Sánchez</h5>
-                        <p class="card-text text-muted">Thunder</p>
-                        <p class="card-text"><strong>Posición:</strong> Pívot</p>
-                        <p class="card-text"><strong>Número:</strong> 15</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('carmen-sanchez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 16 - Balonmano -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="lobos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Elena García</h5>
-                        <p class="card-text text-muted">Los Lobos</p>
-                        <p class="card-text"><strong>Posición:</strong> Extremo</p>
-                        <p class="card-text"><strong>Número:</strong> 7</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('elena-garcia')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 17 - Voleibol -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="voleibol" data-equipo="titans">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Jorge Martín</h5>
-                        <p class="card-text text-muted">Titans</p>
-                        <p class="card-text"><strong>Posición:</strong> Rematador</p>
-                        <p class="card-text"><strong>Número:</strong> 5</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('jorge-martin')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 18 - Las Guerreras -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="guerreras">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Marta Mangué</h5>
-                        <p class="card-text text-muted">Las Guerreras</p>
-                        <p class="card-text"><strong>Posición:</strong> Lateral</p>
-                        <p class="card-text"><strong>Número:</strong> 10</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('marta-mangue')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 19 - Las Guerreras -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="guerreras">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Elisabeth Pinedo</h5>
-                        <p class="card-text text-muted">Las Guerreras</p>
-                        <p class="card-text"><strong>Posición:</strong> Extremo</p>
-                        <p class="card-text"><strong>Número:</strong> 7</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('elisabeth-pinedo')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 20 - Las Guerreras -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="guerreras">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Nerea Pena</h5>
-                        <p class="card-text text-muted">Las Guerreras</p>
-                        <p class="card-text"><strong>Posición:</strong> Lateral</p>
-                        <p class="card-text"><strong>Número:</strong> 8</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('nerea-pena')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 21 - Las Guerreras -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="guerreras">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Silvia Navarro</h5>
-                        <p class="card-text text-muted">Las Guerreras</p>
-                        <p class="card-text"><strong>Posición:</strong> Portero</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('silvia-navarro')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 22 - Los Hispanos -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="hispanos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Julen Aguinagalde</h5>
-                        <p class="card-text text-muted">Los Hispanos</p>
-                        <p class="card-text"><strong>Posición:</strong> Pívot</p>
-                        <p class="card-text"><strong>Número:</strong> 9</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('julen-aguinagalde')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 23 - Los Hispanos -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="hispanos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Raúl Entrerríos</h5>
-                        <p class="card-text text-muted">Los Hispanos</p>
-                        <p class="card-text"><strong>Posición:</strong> Central</p>
-                        <p class="card-text"><strong>Número:</strong> 10</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('raul-entrerrios')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 24 - Los Hispanos -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="hispanos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Daniel Sarmiento</h5>
-                        <p class="card-text text-muted">Los Hispanos</p>
-                        <p class="card-text"><strong>Posición:</strong> Lateral</p>
-                        <p class="card-text"><strong>Número:</strong> 11</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('daniel-sarmiento')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 25 - Los Hispanos -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="hispanos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Víctor Tomás</h5>
-                        <p class="card-text text-muted">Los Hispanos</p>
-                        <p class="card-text"><strong>Posición:</strong> Extremo</p>
-                        <p class="card-text"><strong>Número:</strong> 7</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('victor-tomas')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 26 - Los Hispanos -->
-            <div class="col-12 col-md-6 col-lg-4 jugador-card" data-competicion="balonmano" data-equipo="hispanos">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-circle display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Arpad Sterbik</h5>
-                        <p class="card-text text-muted">Los Hispanos</p>
-                        <p class="card-text"><strong>Posición:</strong> Portero</p>
-                        <p class="card-text"><strong>Número:</strong> 1</p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleJugadorModal('arpad-sterbik')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal Detalle Jugador -->
-    <div class="modal fade" id="modalDetalleJugador" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalJugadorTitulo">Perfil del Jugador</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="modalJugadorCuerpo">
-                    <!-- Contenido dinámico -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
+  <!-- Filtros -->
+  <div class="row mb-4 g-3">
+    <div class="col-md-4">
+      <label for="filtroCompeticion" class="form-label">Filtrar por competición</label>
+      <select id="filtroCompeticion" class="form-select" [(ngModel)]="filtroCompeticion">
+        <option value="">Todas</option>
+        <option value="futbol">Fútbol</option>
+        <option value="baloncesto">Baloncesto</option>
+        <option value="balonmano">Balonmano</option>
+        <option value="voleibol">Voleibol</option>
+        <option value="tenis">Tenis</option>
+        <option value="atletismo">Atletismo</option>
+        <option value="natacion">Natación</option>
+        <option value="padel">Pádel</option>
+      </select>
     </div>
+    <div class="col-md-4">
+      <label for="filtroEquipo" class="form-label">Filtrar por equipo</label>
+      <input type="text" id="filtroEquipo" class="form-control" placeholder="Nombre del equipo" [(ngModel)]="filtroEquipo">
+    </div>
+    <div class="col-md-4">
+      <label for="buscarJugador" class="form-label">Buscar jugador</label>
+      <input type="text" id="buscarJugador" class="form-control" placeholder="Nombre del jugador" [(ngModel)]="busqueda">
+    </div>
+  </div>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/jugadores.js"></script>
+  <!-- Cards de jugadores -->
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let item of jugadoresFiltrados | keyvalue">
+      <div class="card h-100 jugador-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.value.nombre }}</h5>
+          <p class="card-text"><strong>Equipo:</strong> {{ item.value.equipo }}</p>
+          <p class="card-text"><strong>Competición:</strong> {{ item.value.competicion }}</p>
+          <p class="card-text"><strong>Posición:</strong> {{ item.value.posicion }}</p>
+          <p class="card-text"><strong>Número:</strong> {{ item.value.numero }}</p>
+          <button class="btn btn-primary" (click)="mostrarDetalle(item.key)">
+            Ver Detalles
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal detalle jugador -->
+<div class="modal fade" id="modalDetalleJugador" tabindex="-1" aria-labelledby="modalJugadorTitulo" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="modalJugadorTitulo">{{ jugadorDetalle?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="jugadorDetalle">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Información Personal</h6>
+              <p><strong>Equipo:</strong> {{ jugadorDetalle.equipo }}</p>
+              <p><strong>Competición:</strong> {{ jugadorDetalle.competicion }}</p>
+              <p><strong>Posición:</strong> {{ jugadorDetalle.posicion }}</p>
+              <p><strong>Número:</strong> {{ jugadorDetalle.numero }}</p>
+              <p><strong>Edad:</strong> {{ jugadorDetalle.edad }} años</p>
+              <p><strong>Email:</strong> {{ jugadorDetalle.email }}</p>
+            </div>
+            <div class="col-md-6">
+              <h6>Estadísticas</h6>
+              <ng-container [ngSwitch]="jugadorDetalle.competicion">
+                <div *ngSwitchCase="'Fútbol'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
+                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias || 0 }}</p>
+                  <p><strong>Tarjetas Amarillas:</strong> {{ jugadorDetalle.tarjetasAmarillas || 0 }}</p>
+                  <p><strong>Tarjetas Rojas:</strong> {{ jugadorDetalle.tarjetasRojas || 0 }}</p>
+                </div>
+                <div *ngSwitchCase="'Baloncesto'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
+                  <p><strong>Rebotes:</strong> {{ jugadorDetalle.rebotes }}</p>
+                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
+                  <p><strong>Puntos por Partido:</strong> {{ (jugadorDetalle.puntos! / jugadorDetalle.partidosJugados!).toFixed(1) }}</p>
+                </div>
+                <div *ngSwitchCase="'Balonmano'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
+                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias || 0 }}</p>
+                  <p><strong>Paradas:</strong> {{ jugadorDetalle.paradas || 0 }}</p>
+                  <p><strong>Goles Recibidos:</strong> {{ jugadorDetalle.golesRecibidos || 0 }}</p>
+                </div>
+                <div *ngSwitchCase="'Voleibol'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Sets:</strong> {{ jugadorDetalle.sets }}</p>
+                  <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
+                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
+                </div>
+                <div *ngSwitchCase="'Tenis'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
+                  <p><strong>Derrotas:</strong> {{ jugadorDetalle.derrotas }}</p>
+                  <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
+                  <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
+                </div>
+                <div *ngSwitchCase="'Atletismo'">
+                  <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Medallas Oro:</strong> {{ jugadorDetalle.medallasOro }}</p>
+                  <p><strong>Medallas Plata:</strong> {{ jugadorDetalle.medallasPlata }}</p>
+                  <p><strong>Medallas Bronce:</strong> {{ jugadorDetalle.medallasBronce }}</p>
+                  <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
+                </div>
+                <div *ngSwitchCase="'Natación'">
+                  <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
+                  <p><strong>Medallas Oro:</strong> {{ jugadorDetalle.medallasOro }}</p>
+                  <p><strong>Medallas Plata:</strong> {{ jugadorDetalle.medallasPlata }}</p>
+                  <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
+                </div>
+                <div *ngSwitchCase="'Pádel'">
+                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
+                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
+                  <p><strong>Derrotas:</strong> {{ jugadorDetalle.derrotas }}</p>
+                  <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
+                  <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
