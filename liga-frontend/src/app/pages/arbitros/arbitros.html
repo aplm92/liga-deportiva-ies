@@ -1,174 +1,50 @@
-    <!-- Contenido Principal -->
-    <main class="container my-5 pt-4">
-        <h1 class="text-center mb-4">Árbitros</h1>
-        
-        <!-- Filtros y Búsqueda -->
-        <div class="filter-section mb-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="filtroCompeticion" class="form-label">Filtrar por Competición</label>
-                    <select class="form-select" id="filtroCompeticion" onchange="filtrarArbitros()">
-                        <option value="">Todas las competiciones</option>
-                        <option value="balonmano">Balonmano</option>
-                        <option value="futbol">Fútbol</option>
-                        <option value="baloncesto">Baloncesto</option>
-                        <option value="voleibol">Voleibol</option>
-                        <option value="tenis">Tenis</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="filtroExperiencia" class="form-label">Filtrar por Experiencia</label>
-                    <select class="form-select" id="filtroExperiencia" onchange="filtrarArbitros()">
-                        <option value="">Toda la experiencia</option>
-                        <option value="principiante">Principiante (0-2 años)</option>
-                        <option value="intermedio">Intermedio (3-5 años)</option>
-                        <option value="experto">Experto (6+ años)</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="buscarArbitro" class="form-label">Buscar por Nombre</label>
-                    <div class="search-box">
-                        <input type="text" class="form-control" id="buscarArbitro" placeholder="Nombre del árbitro..." onkeyup="filtrarArbitros()">
-                        <i class="bi bi-search"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row">
+  <div class="col-md-4 mb-3"
+       *ngFor="let arbitro of arbitros">
 
-        <!-- Listado de Árbitros -->
-        <div class="row g-4" id="listaArbitros">
-            <!-- Árbitro 1 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="futbol" data-experiencia="experto">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Miguel Ángel</h5>
-                        <p class="card-text text-muted">Fútbol</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 8 años</p>
-                        <p class="card-text"><small class="text-muted">15 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('miguel-angel')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ arbitro.nombre }}</h5>
 
-            <!-- Árbitro 2 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="futbol" data-experiencia="intermedio">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Carlos Ruiz</h5>
-                        <p class="card-text text-muted">Fútbol</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 4 años</p>
-                        <p class="card-text"><small class="text-muted">12 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('carlos-ruiz')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <p class="card-text">
+          {{ arbitro.competicion }} · {{ arbitro.categoria }}
+        </p>
 
-            <!-- Árbitro 3 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="futbol" data-experiencia="principiante">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Ana García</h5>
-                        <p class="card-text text-muted">Fútbol</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 1 año</p>
-                        <p class="card-text"><small class="text-muted">8 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('ana-garcia')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Árbitro 4 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="baloncesto" data-experiencia="experto">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Luis Martínez</h5>
-                        <p class="card-text text-muted">Baloncesto</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 10 años</p>
-                        <p class="card-text"><small class="text-muted">20 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('luis-martinez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Árbitro 5 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="baloncesto" data-experiencia="intermedio">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">María López</h5>
-                        <p class="card-text text-muted">Baloncesto</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 5 años</p>
-                        <p class="card-text"><small class="text-muted">18 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('maria-lopez-arbitro')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Árbitro 6 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="balonmano" data-experiencia="intermedio">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Pedro Sánchez</h5>
-                        <p class="card-text text-muted">Balonmano</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 4 años</p>
-                        <p class="card-text"><small class="text-muted">10 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('pedro-sanchez-arbitro')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Árbitro 7 -->
-            <div class="col-12 col-md-6 col-lg-4 arbitro-card" data-competicion="voleibol" data-experiencia="experto">
-                <div class="card h-100 card-hover">
-                    <div class="card-body text-center">
-                        <i class="bi bi-person-badge display-4 text-primary mb-3"></i>
-                        <h5 class="card-title">Elena Fernández</h5>
-                        <p class="card-text text-muted">Voleibol</p>
-                        <p class="card-text"><strong>Experiencia:</strong> 7 años</p>
-                        <p class="card-text"><small class="text-muted">14 partidos arbitrados</small></p>
-                        <button class="btn btn-primary btn-animated" onclick="mostrarDetalleArbitroModal('elena-fernandez')">
-                            Ver Perfil
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Modal Detalle Árbitro -->
-    <div class="modal fade" id="modalDetalleArbitro" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalArbitroTitulo">Perfil del Árbitro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="modalArbitroCuerpo">
-                    <!-- Contenido dinámico -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
+        <button class="btn btn-primary"
+                (click)="mostrarDetalle(arbitro)">
+          Ver detalle
+        </button>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/arbitros.js"></script>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDetalleArbitro" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ arbitroSeleccionado?.nombre }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" *ngIf="arbitroSeleccionado">
+        <p><strong>Competición:</strong> {{ arbitroSeleccionado.competicion }}</p>
+        <p><strong>Experiencia:</strong> {{ arbitroSeleccionado.experiencia }} años</p>
+        <p><strong>Email:</strong> {{ arbitroSeleccionado.email }}</p>
+
+        <h6>Certificaciones</h6>
+        <ul class="list-group">
+          <li class="list-group-item"
+              *ngFor="let cert of arbitroSeleccionado.certificaciones">
+            <i class="bi bi-award me-2"></i>{{ cert }}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
