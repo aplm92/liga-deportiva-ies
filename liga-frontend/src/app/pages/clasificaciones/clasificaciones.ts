@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './clasificaciones.html',
   styleUrl: './clasificaciones.scss',
 })
-export class Clasificaciones {
 
+export class Clasificaciones {
+  filtroCompeticion: string = '';
 }
