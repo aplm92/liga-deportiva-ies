@@ -13,7 +13,15 @@ import { Arbitros } from './pages/arbitros/arbitros';
 import { Resultados } from './pages/resultados/resultados';
 import { Contacto } from './pages/contacto/contacto';
 import { LoginComponent } from './pages/auth/login/login';
-import { Registro } from './pages/auth/registro/registro';
+import { RegistroComponent } from './pages/auth/registro/registro';
+import { AdminComponent } from './pages/admin/admin.component';
+import { PartidosService } from './services/partidos.service';
+import { CommonModule } from '@angular/common';
+import { MisPartidosArbitroComponent } from './pages/mis-partidos-arbitro/mis-partidos-arbitro.component';
+import { ListaPartidosComponent } from './pages/lista-partidos/lista-partidos.component';
+import { ChangeDetectorRef } from '@angular/core';
+
+
 
 @NgModule({
   declarations: [
@@ -27,13 +35,17 @@ import { Registro } from './pages/auth/registro/registro';
     Arbitros,
     Resultados,
     Contacto,
-    Registro
+    LoginComponent,
+    RegistroComponent,
+    AdminComponent,
+    MisPartidosArbitroComponent,
+    ListaPartidosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    LoginComponent
+    CommonModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()

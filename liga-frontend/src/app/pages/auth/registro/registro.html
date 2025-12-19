@@ -1,1 +1,16 @@
-<p>registro works!</p>
+<div class="container mt-5" style="max-width: 400px;">
+  <h2>Registro</h2>
+
+  <input type="text" [(ngModel)]="nombre" class="form-control mb-2" placeholder="Nombre">
+  <input type="email" [(ngModel)]="email" class="form-control mb-2" placeholder="Email">
+  <input type="password" [(ngModel)]="password" class="form-control mb-2" placeholder="Contraseña">
+
+  <select [(ngModel)]="tipo" class="form-select mb-3">
+    <option value="normal">Usuario normal</option>
+    <option value="admin">Administrador</option>
+    <option value="capitan">Capitán</option>
+    <option value="arbitro">Árbitro</option>
+  </select>
+
+  <button class="btn btn-primary w-100" (click)="registrar()">Registrarse</button>
+</div>

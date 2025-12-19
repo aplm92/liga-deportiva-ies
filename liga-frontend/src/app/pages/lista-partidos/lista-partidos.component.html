@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>{{usuario.nombre}} - Partidos de tu equipo: {{usuario.equipo}}</h2>
+
+  <div *ngIf="cargando" class="alert alert-info">
+    Cargando partidos..
+  </div>
+
+  <div *ngIf="!cargando && partidos.length === 0" class="alert alert-warning">
+    No hay partidos disponibles.
+  </div>
+
+  <div *ngFor="let partido of partidos" class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ partido.equipoLocal }} vs {{ partido.equipoVisitante }}</h5>
+      <p><strong>Fecha:</strong> {{ partido.fecha | date:'short' }}</p>
+      <p><strong>Lugar:</strong> {{ partido.ubicacion }}</p>
+      <p><strong>Deporte:</strong> {{ partido.deporte }}</p>
+      <p><strong>Árbitro:</strong> {{ partido.arbitroId }}</p>
+
+      <!-- Solo los capitanes pueden introducir resultados -->
+      <div *ngIf="usuario.tipo === 'capitan'" class="mt-2">
+        <div class="row g-2 align-items-center">
+          <div class="col-auto">
+            <input type="number" [(ngModel)]="partido.resultadoLocal" class="form-control" placeholder="Local">
+          </div>
+          <div class="col-auto">
+            <input type="number" [(ngModel)]="partido.resultadoVisitante" class="form-control" placeholder="Visitante">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-success" (click)="enviarResultado(partido)">Enviar Resultado</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="partido.resultadoLocal !== null && partido.resultadoVisitante !== null" class="mt-2">
+        <p><strong>Resultado oficial:</strong> {{ partido.resultadoLocal }} - {{ partido.resultadoVisitante }}</p>
+      </div>
+
+      <div class="mt-1">
+        <span class="badge bg-warning" *ngIf="partido.estado === 'pendiente'">Pendiente</span>
+        <span class="badge bg-success" *ngIf="partido.estado === 'finalizado'">Finalizado</span>
+        <span class="badge bg-danger" *ngIf="partido.estado === 'revision'">Revisión</span>
+      </div>
+    </div>
+  </div>
+</div>

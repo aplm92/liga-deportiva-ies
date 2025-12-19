@@ -1,18 +1,37 @@
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h3>Iniciar sesión</h3>
-      <form (ngSubmit)="submit()">
-        <div class="mb-3">
-          <label>Usuario</label>
-          <input [(ngModel)]="usuario" name="usuario" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label>Contraseña</label>
-          <input [(ngModel)]="password" name="password" type="password" class="form-control" required>
-        </div>
-        <button class="btn btn-primary">Entrar</button>
-      </form>
+<div class="container mt-5">
+  <h2>Login</h2>
+
+  <input type="email" [(ngModel)]="email" class="form-control mb-2" placeholder="Email">
+  <input type="password" [(ngModel)]="password" class="form-control mb-3" placeholder="Contraseña">
+
+  <button class="btn btn-primary w-100" (click)="login()">
+    Iniciar sesión
+  </button>
+
+  <!-- TOAST LOGIN -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    *ngIf="mostrarToast"
+    #toastLogin
+    class="toast text-bg-success border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    style="min-width: 320px;"
+  >
+    <div class="d-flex">
+      <div class="toast-body fw-semibold">
+        {{ mensajeToast }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast">
+      </button>
     </div>
   </div>
+</div>
+
+
+
 </div>

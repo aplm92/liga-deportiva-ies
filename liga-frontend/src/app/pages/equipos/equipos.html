@@ -1,82 +1,61 @@
-<!-- Contenido Principal -->
-<main class="container my-5 pt-4">
-  <h1 class="text-center mb-5">Equipos</h1>
+<div class="container mt-4">
+  <h2>Equipos</h2>
 
-  <!-- Filtro y Búsqueda -->
-  <div class="row mb-4 g-3">
-    <div class="col-md-6">
-      <label for="filtroCompeticion" class="form-label">Filtrar por competición</label>
-      <select class="form-select" id="filtroCompeticion" [(ngModel)]="filtroCompeticion">
-        <option value="">Todas las competiciones</option>
-        <option value="futbol">Fútbol</option>
-        <option value="baloncesto">Baloncesto</option>
-        <option value="balonmano">Balonmano</option>
-        <option value="voleibol">Voleibol</option>
-        <option value="tenis">Tenis</option>
-        <option value="atletismo">Atletismo</option>
-        <option value="natacion">Natación</option>
-        <option value="padel">Pádel</option>
-      </select>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Buscar equipo..." [(ngModel)]="busqueda">
     </div>
-    <div class="col-md-6">
-      <label for="buscarEquipo" class="form-label">Buscar equipo</label>
-      <input type="text" id="buscarEquipo" class="form-control" placeholder="Nombre del equipo" [(ngModel)]="busqueda">
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="filtroCompeticion">
+        <option value="">Todas las competiciones</option>
+        <option *ngFor="let comp of ['Futbol','Baloncesto','Balonmano','Voleibol','Tenis','Atletismo','Natacion','Padel']">
+          {{ comp }}
+        </option>
+      </select>
     </div>
   </div>
 
-  <!-- Cards de Equipos -->
-  <div class="row" id="equiposContainer">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let item of equiposFiltrados | keyvalue">
-      <div class="card h-100 card-hover">
-        <img [src]="imagenesDeportes[item.value.competicion.toLowerCase()]" [alt]="item.value.competicion" class="deporte-imagen">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{ item.value.nombre }}</h5>
-          <p class="card-text text-muted">{{ item.value.competicion }}</p>
-          <p class="card-text"><strong>Capitán:</strong> {{ item.value.capitan }}</p>
-          <p class="card-text"><small class="text-muted">{{ item.value.totalJugadores }} jugadores</small></p>
-          <button class="btn btn-primary btn-animated" (click)="mostrarDetalle(item.key)">
-            Ver Detalles
-          </button>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let id of Object.keys(equiposFiltrados)">
+      <div class="card h-100">
+        <img [src]="imagenesDeportes[equiposFiltrados[id].competicion.toLowerCase()]" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ equiposFiltrados[id].nombre }}</h5>
+          <p><strong>Competición:</strong> {{ equiposFiltrados[id].competicion }}</p>
+          <p><strong>Capitán:</strong> {{ equiposFiltrados[id].capitan }}</p>
+          <button class="btn btn-primary" (click)="mostrarDetalle(id)">Ver detalle</button>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>
 
-<!-- Modal de Detalle del Equipo -->
-<div class="modal fade" id="equipoModal" tabindex="-1" aria-labelledby="equipoModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="equipoModalTitle">{{ equipoDetalle?.nombre }}</h5>
+<!-- Modal Detalle Equipo -->
+<div class="modal fade" id="equipoModal" tabindex="-1" aria-labelledby="equipoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" *ngIf="equipoDetalle">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ equipoDetalle.nombre }} - {{ equipoDetalle.competicion }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <p><strong>Competición:</strong> {{ equipoDetalle?.competicion }}</p>
-        <p><strong>Capitán:</strong> {{ equipoDetalle?.capitan }}</p>
-        <p><strong>Total de Jugadores:</strong> {{ equipoDetalle?.totalJugadores }}</p>
-
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Posición</th>
-                <th>Número</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let jugador of equipoDetalle?.jugadores">
-                <td>{{ jugador.nombre }}</td>
-                <td>{{ jugador.posicion }}</td>
-                <td>{{ jugador.numero }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <p><strong>Capitán:</strong> {{ equipoDetalle.capitan }}</p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Posición</th>
+              <th>Número</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let j of equipoDetalle.jugadores">
+              <td>{{ j.nombre }}</td>
+              <td>{{ j.posicion }}</td>
+              <td>{{ j.numero }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

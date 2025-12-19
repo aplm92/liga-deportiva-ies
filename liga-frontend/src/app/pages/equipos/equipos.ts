@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PartidosService } from '../../services/partidos.service';
 
 interface Jugador {
   nombre: string;
@@ -24,12 +25,90 @@ interface Equipo {
   templateUrl: './equipos.html',
   styleUrls: ['./equipos.scss']
 })
+export class Equipos implements OnInit {
 
-export class Equipos {
-  filtroCompeticion: string = '';
-  busqueda: string = '';
+  filtroCompeticion = '';
+  busqueda = '';
+  equipoDetalle?: Equipo;
 
-  equipos: Record<string, Equipo> = { guerreras: {
+  partidos: any[] = [];
+  usuario: any;
+
+  // Para usar Object.keys en el HTML
+  Object = Object;
+
+  imagenesDeportes: { [key: string]: string } = {
+    futbol: 'assets/images/logoFutbol.jpg',
+    baloncesto: 'assets/images/logoBaloncesto.jpg',
+    balonmano: 'assets/images/logoBalonmano.jpg',
+    voleibol: 'assets/images/logoVoleibol.jpg',
+    tenis: 'assets/images/logoTenis.jpg',
+    atletismo: 'assets/images/logoAtletismo.jpg',
+    natacion: 'assets/images/logoNatacion.jpg',
+    padel: 'assets/images/logoPadel.jpg'
+  };
+
+  constructor(private partidosService: PartidosService) {}
+
+  ngOnInit() {
+  const usuario = JSON.parse(localStorage.getItem('usuario')!);
+  if (usuario?.equipo) {
+    this.partidosService.partidosEquipo(usuario.equipo)
+      .subscribe(
+        (p: any[]) => this.partidos = p,
+        err => console.error(err)
+      );
+  }
+}
+
+
+  // FILTRO DE EQUIPOS
+  get equiposFiltrados(): Record<string, Equipo> {
+    const filtrados: Record<string, Equipo> = {};
+
+    Object.entries(this.equipos).forEach(([id, equipo]) => {
+      const coincideCompeticion =
+        !this.filtroCompeticion ||
+        equipo.competicion.toLowerCase() === this.filtroCompeticion.toLowerCase();
+
+      const coincideBusqueda =
+        !this.busqueda ||
+        equipo.nombre.toLowerCase().includes(this.busqueda.toLowerCase());
+
+      if (coincideCompeticion && coincideBusqueda) {
+        filtrados[id] = equipo;
+      }
+    });
+
+    return filtrados;
+  }
+
+  mostrarDetalle(id: string) {
+    this.equipoDetalle = this.equipos[id];
+    const modalEl = document.getElementById('equipoModal');
+    if (modalEl) {
+      const modal = new (window as any).bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }
+
+  // ENVÍO DE RESULTADO (CAPITÁN)
+  enviarResultado(partido: any) {
+    this.partidosService
+      .enviarResultado(
+        partido._id,
+        partido.resultadoLocal,
+        partido.resultadoVisitante
+      )
+      .subscribe({
+        next: () => alert('Resultado enviado'),
+        error: err => console.error('Error enviando resultado', err)
+      });
+  }
+
+  //  OBJETO "equipos" datos de ejmplo
+  equipos: Record<string, Equipo> = {
+    guerreras: {
         nombre: 'Las Guerreras',
         competicion: 'Balonmano',
         capitan: 'Macarena Aguilar',
@@ -109,7 +188,7 @@ export class Equipos {
     },
     halcones: {
         nombre: 'Los Halcones',
-        competicion: 'Futbol',
+        competicion: 'Fútbol',
         capitan: 'Juan Pérez',
         jugadores: [
             { nombre: 'Juan Pérez', posicion: 'Portero', numero: 1 },
@@ -137,7 +216,7 @@ export class Equipos {
     },
     leones: {
         nombre: 'Los Leones',
-        competicion: 'Futbol',
+        competicion: 'Fútbol',
         capitan: 'Carlos García',
         jugadores: [
             { nombre: 'Carlos García', posicion: 'Portero', numero: 1 },
@@ -279,7 +358,7 @@ export class Equipos {
     },
     delfines: {
         nombre: 'Los Delfines',
-        competicion: 'Natacion',
+        competicion: 'Natación',
         capitan: 'Laura Phelps',
         jugadores: [
             { nombre: 'Laura Phelps', posicion: 'Estilo Libre', numero: 1 },
@@ -301,7 +380,7 @@ export class Equipos {
     },
     palas: {
         nombre: 'Palas Pro',
-        competicion: 'Padel',
+        competicion: 'Pádel',
         capitan: 'Pablo Pareja',
         jugadores: [
             { nombre: 'Pablo Pareja', posicion: 'Pareja A', numero: 1 },
@@ -317,41 +396,7 @@ export class Equipos {
         partidosJugados: 10,
         partidosGanados: 7,
         partidosEmpatados: 0,
-        partidosPerdidos: 3 }
-      }
-  imagenesDeportes: { [key: string]: string } = {
-  futbol: 'assets/images/logoFutbol.jpg',
-  baloncesto: 'assets/images/logoBaloncesto.jpg',
-  balonmano: 'assets/images/logoBalonmano.jpg',
-  voleibol: 'assets/images/logoVoleibol.jpg',
-  tenis: 'assets/images/logoTenis.jpg',
-  atletismo: 'assets/images/logoAtletismo.jpg',
-  natacion: 'assets/images/logoNatacion.jpg',
-  padel: 'assets/images/logoPadel.jpg'
-};
-
-  equipoDetalle?: Equipo;
-
-  get equiposFiltrados() {
-    const filtrados: Record<string, Equipo> = {};
-    Object.entries(this.equipos).forEach(([id, equipo]) => {
-      const coincideCompeticion = !this.filtroCompeticion || 
-        equipo.competicion.toLowerCase() === this.filtroCompeticion.toLowerCase();
-      const coincideBusqueda = !this.busqueda || 
-        equipo.nombre.toLowerCase().includes(this.busqueda.toLowerCase());
-      if (coincideCompeticion && coincideBusqueda) {
-        filtrados[id] = equipo;
-      }
-    });
-    return filtrados;
-  }
-
-  mostrarDetalle(id: string) {
-    this.equipoDetalle = this.equipos[id];
-    const modalEl = document.getElementById('equipoModal');
-    if (modalEl) {
-      const modal = new (window as any).bootstrap.Modal(modalEl);
-      modal.show();
+        partidosPerdidos: 3
     }
-  }
+  };
 }
