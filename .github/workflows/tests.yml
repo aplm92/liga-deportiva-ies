@@ -68,7 +68,7 @@ jobs:
       - name: Run Laravel tests
         run: |
           cd backend
-          php artisan test
+          php artisan test --without-warnings
 
   # -------------------------
   # CYPRESS E2E TESTS
