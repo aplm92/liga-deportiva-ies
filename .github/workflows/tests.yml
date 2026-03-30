@@ -68,7 +68,7 @@ jobs:
       - name: Run Laravel tests
         run: |
           cd backend
-          php artisan test --fail-on-deprecation=0 --fail-on-warning=0
+          ./vendor/bin/phpunit --configuration phpunit.xml
 
   # -------------------------
   # CYPRESS E2E TESTS
