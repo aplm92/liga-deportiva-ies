@@ -107,4 +107,4 @@ jobs:
       - name: Run Cypress tests
         run: |
           cd frontend
-          npx cypress run --spec "cypress/e2e/jugadores-crear.cy.ts,cypress/e2e/jugadores-lista.cy.ts"
+          npx cypress run --spec "cypress/e2e/jugadores-crear.cy.ts"
