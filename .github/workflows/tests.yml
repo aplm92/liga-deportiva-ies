@@ -31,7 +31,7 @@ jobs:
       - name: Run Angular tests
         run: |
           cd frontend
-          npm test -- --watch=false --browsers=ChromeHeadless
+          npm test
 
   # -------------------------
   # LARAVEL TESTS
