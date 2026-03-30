@@ -7,20 +7,22 @@
       <label for="filtroCompeticion" class="form-label">Filtrar por competición</label>
       <select id="filtroCompeticion" class="form-select" [(ngModel)]="filtroCompeticion">
         <option value="">Todas</option>
-        <option value="futbol">Fútbol</option>
-        <option value="baloncesto">Baloncesto</option>
-        <option value="balonmano">Balonmano</option>
-        <option value="voleibol">Voleibol</option>
-        <option value="tenis">Tenis</option>
-        <option value="atletismo">Atletismo</option>
-        <option value="natacion">Natación</option>
-        <option value="padel">Pádel</option>
+        <option value="Fútbol">Fútbol</option>
+        <option value="Baloncesto">Baloncesto</option>
+        <option value="Balonmano">Balonmano</option>
+        <option value="Voleibol">Voleibol</option>
+        <option value="Tenis">Tenis</option>
+        <option value="Atletismo">Atletismo</option>
+        <option value="Natación">Natación</option>
+        <option value="Pádel">Pádel</option>
       </select>
     </div>
+
     <div class="col-md-4">
       <label for="filtroEquipo" class="form-label">Filtrar por equipo</label>
       <input type="text" id="filtroEquipo" class="form-control" placeholder="Nombre del equipo" [(ngModel)]="filtroEquipo">
     </div>
+
     <div class="col-md-4">
       <label for="buscarJugador" class="form-label">Buscar jugador</label>
       <input type="text" id="buscarJugador" class="form-control" placeholder="Nombre del jugador" [(ngModel)]="busqueda">
@@ -29,15 +31,16 @@
 
   <!-- Cards de jugadores -->
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let item of jugadoresFiltrados | keyvalue">
+    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let jugador of jugadoresFiltrados">
       <div class="card h-100 jugador-card">
         <div class="card-body">
-          <h5 class="card-title">{{ item.value.nombre }}</h5>
-          <p class="card-text"><strong>Equipo:</strong> {{ item.value.equipo }}</p>
-          <p class="card-text"><strong>Competición:</strong> {{ item.value.competicion }}</p>
-          <p class="card-text"><strong>Posición:</strong> {{ item.value.posicion }}</p>
-          <p class="card-text"><strong>Número:</strong> {{ item.value.numero }}</p>
-          <button class="btn btn-primary" (click)="mostrarDetalle(item.key)">
+          <h5 class="card-title">{{ jugador.nombre }}</h5>
+          <p class="card-text"><strong>Equipo:</strong> {{ jugador.equipo }}</p>
+          <p class="card-text"><strong>Competición:</strong> {{ jugador.competicion }}</p>
+          <p class="card-text"><strong>Posición:</strong> {{ jugador.posicion }}</p>
+          <p class="card-text"><strong>Número:</strong> {{ jugador.numero }}</p>
+
+          <button class="btn btn-primary" (click)="mostrarDetalle(jugador)">
             Ver Detalles
           </button>
         </div>
@@ -54,6 +57,7 @@
         <h5 class="modal-title" id="modalJugadorTitulo">{{ jugadorDetalle?.nombre }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
+
       <div class="modal-body">
         <div *ngIf="jugadorDetalle">
           <div class="row">
@@ -66,9 +70,12 @@
               <p><strong>Edad:</strong> {{ jugadorDetalle.edad }} años</p>
               <p><strong>Email:</strong> {{ jugadorDetalle.email }}</p>
             </div>
+
             <div class="col-md-6">
               <h6>Estadísticas</h6>
+
               <ng-container [ngSwitch]="jugadorDetalle.competicion">
+
                 <div *ngSwitchCase="'Fútbol'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
@@ -76,6 +83,7 @@
                   <p><strong>Tarjetas Amarillas:</strong> {{ jugadorDetalle.tarjetasAmarillas || 0 }}</p>
                   <p><strong>Tarjetas Rojas:</strong> {{ jugadorDetalle.tarjetasRojas || 0 }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Baloncesto'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
@@ -83,6 +91,7 @@
                   <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
                   <p><strong>Puntos por Partido:</strong> {{ (jugadorDetalle.puntos! / jugadorDetalle.partidosJugados!).toFixed(1) }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Balonmano'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
@@ -90,12 +99,14 @@
                   <p><strong>Paradas:</strong> {{ jugadorDetalle.paradas || 0 }}</p>
                   <p><strong>Goles Recibidos:</strong> {{ jugadorDetalle.golesRecibidos || 0 }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Voleibol'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Sets:</strong> {{ jugadorDetalle.sets }}</p>
                   <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
                   <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Tenis'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
@@ -103,6 +114,7 @@
                   <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
                   <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Atletismo'">
                   <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Medallas Oro:</strong> {{ jugadorDetalle.medallasOro }}</p>
@@ -110,6 +122,7 @@
                   <p><strong>Medallas Bronce:</strong> {{ jugadorDetalle.medallasBronce }}</p>
                   <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Natación'">
                   <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
@@ -117,6 +130,7 @@
                   <p><strong>Medallas Plata:</strong> {{ jugadorDetalle.medallasPlata }}</p>
                   <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
                 </div>
+
                 <div *ngSwitchCase="'Pádel'">
                   <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
                   <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
@@ -124,11 +138,13 @@
                   <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
                   <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
                 </div>
+
               </ng-container>
             </div>
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>

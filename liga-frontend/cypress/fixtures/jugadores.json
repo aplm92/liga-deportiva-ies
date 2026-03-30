@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Marta",
+    "posicion": "Lateral",
+    "numero": 9,
+    "equipo": "Las Guerreras",
+    "competicion": "Liga Nacional",
+    "edad": 25,
+    "partidosJugados": 10,
+    "email": "marta@example.com"
+  },
+  {
+    "nombre": "Pedro",
+    "posicion": "Portero",
+    "numero": 1,
+    "equipo": "Los Hispanos",
+    "competicion": "Liga Nacional",
+    "edad": 27,
+    "partidosJugados": 12,
+    "email": "pedro@example.com"
+  },
+  {
+    "nombre": "Luis",
+    "posicion": "Defensa",
+    "numero": 4,
+    "equipo": "Caserio",
+    "competicion": "Liga Nacional",
+    "edad": 28,
+    "partidosJugados": 15,
+    "email": "luis@example.com"
+  }
+]

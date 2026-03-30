@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { MisPartidosArbitroComponent } from './pages/mis-partidos-arbitro/mis-partidos-arbitro.component';
 import { ListaPartidosComponent } from './pages/lista-partidos/lista-partidos.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { JugadoresCrear } from './pages/jugadores-crear/jugadores-crear';
 
 
 
@@ -39,7 +40,8 @@ import { ChangeDetectorRef } from '@angular/core';
     RegistroComponent,
     AdminComponent,
     MisPartidosArbitroComponent,
-    ListaPartidosComponent
+    ListaPartidosComponent,
+    JugadoresCrear
   ],
   imports: [
     BrowserModule,

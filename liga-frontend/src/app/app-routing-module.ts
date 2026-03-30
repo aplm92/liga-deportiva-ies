@@ -12,6 +12,7 @@ import { RegistroComponent } from './pages/auth/registro/registro';
 import { MisPartidosArbitroComponent } from './pages/mis-partidos-arbitro/mis-partidos-arbitro.component';
 import { ListaPartidosComponent } from './pages/lista-partidos/lista-partidos.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { JugadoresCrear } from './pages/jugadores-crear/jugadores-crear';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -25,7 +26,8 @@ export const routes: Routes = [
   { path: 'mis-partidos-arbitro', component: MisPartidosArbitroComponent},
   { path: 'contacto', component: Contacto },
   { path: 'lista-partidos', component: ListaPartidosComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'admin', component: AdminComponent },
+  { path: 'jugadores/crear', component: JugadoresCrear },
 ];
 
 @NgModule({
