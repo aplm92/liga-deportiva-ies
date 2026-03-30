@@ -1,10 +1,19 @@
 describe('Listado de jugadores', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/api/jugadores', {
-      fixture: 'jugadores.json'
+    statusCode: 200,
+    body: [
+      { id: 1, nombre: 'Messi', posicion: 'Delantero' },
+      { id: 2, nombre: 'Ramos', posicion: 'Defensa' }
+    ]
     }).as('getJugadores');
 
     cy.visit('/jugadores');
+
+    cy.wait('@getJugadores');
+
+    cy.contains('Messi');
+    cy.contains('Ramos');
   });
 
   it('muestra la lista de jugadores correctamente', () => {
