@@ -10,8 +10,8 @@ describe('JugadorService (Integración HTTP)', () => {
   let httpMock: HttpTestingController;
 
   const mockJugadores: Jugador[] = [
-    { nombre: 'Marta', posicion: 'Lateral', numero: 9, equipo: 'Las Guerreras', competicion: 'Liga Nacional', edad: 25, partidosJugados: 10, email: 'marta@example.com' },
-    { nombre: 'Pedro', posicion: 'Portero', numero: 1, equipo: 'Los Hispanos', competicion: 'Liga Nacional', edad: 27, partidosJugados: 12, email: 'pedro@example.com' }
+    { nombre: 'Marta', posicion: 'Lateral', dorsal: 9, equipo: 'Las Guerreras', competicion: 'Liga Nacional', edad: 25, partidosJugados: 10, email: 'marta@example.com' },
+    { nombre: 'Pedro', posicion: 'Portero', dorsal: 1, equipo: 'Los Hispanos', competicion: 'Liga Nacional', edad: 27, partidosJugados: 12, email: 'pedro@example.com' }
   ];
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe('JugadorService (Integración HTTP)', () => {
     const nuevoJugador: Jugador = {
       nombre: 'Luis',
       posicion: 'Defensa',
-      numero: 4,
+      dorsal: 4,
       equipo: 'Caserio',
       competicion: 'Liga Nacional',
       edad: 28,
