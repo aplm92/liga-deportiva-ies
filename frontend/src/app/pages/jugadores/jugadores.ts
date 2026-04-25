@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { JugadorService } from '../../services/jugador.service';
 import { Jugador } from '../../models/jugador.model';
 
@@ -10,52 +10,61 @@ import { Jugador } from '../../models/jugador.model';
 })
 export class Jugadores implements OnInit {
 
-  // Restauramos filtros
   filtroCompeticion: string = '';
   filtroEquipo: string = '';
   busqueda: string = '';
 
-  // Ahora jugadores viene de la API
   jugadores: Jugador[] = [];
-
   jugadorDetalle?: Jugador;
 
-  constructor(private jugadorService: JugadorService) {}
+  constructor(
+    private jugadorService: JugadorService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-  // Resetear filtros al entrar en la página
-  this.filtroCompeticion = '';
-  this.filtroEquipo = '';
-  this.busqueda = '';
 
-  this.jugadorService.getJugadores().subscribe(data => {
-    this.jugadores = data;
-  });
-}
+    this.cargarJugadores();
+  }
 
+  cargarJugadores(): void {
+    this.jugadorService.getJugadores().subscribe({
+      next: (data) => {
+        console.log('JUGADORES API:', data);
 
-  // Restauramos getter de filtrado, adaptado a array
+        this.jugadores = data;
+
+        //FORZAR REFRESCO
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error cargando jugadores', err);
+      }
+    });
+  }
+
   get jugadoresFiltrados(): Jugador[] {
-  return this.jugadores.filter(jugador => {
-    const coincideCompeticion =
-      !this.filtroCompeticion ||
-      jugador.competicion.toLowerCase().includes(this.filtroCompeticion.toLowerCase());
+    return this.jugadores.filter(jugador => {
 
-    const coincideEquipo =
-      !this.filtroEquipo ||
-      jugador.equipo.toLowerCase().includes(this.filtroEquipo.toLowerCase());
+      const coincideCompeticion =
+        !this.filtroCompeticion ||
+        jugador.competicion?.toLowerCase().includes(this.filtroCompeticion.toLowerCase());
 
-    const coincideNombre =
-      !this.busqueda ||
-      jugador.nombre.toLowerCase().includes(this.busqueda.toLowerCase());
+      const coincideEquipo =
+        !this.filtroEquipo ||
+        jugador.equipo?.toLowerCase().includes(this.filtroEquipo.toLowerCase());
 
-    return coincideCompeticion && coincideEquipo && coincideNombre;
-  });
-}
+      const coincideNombre =
+        !this.busqueda ||
+        jugador.nombre?.toLowerCase().includes(this.busqueda.toLowerCase());
 
+      return coincideCompeticion && coincideEquipo && coincideNombre;
+    });
+  }
 
   mostrarDetalle(jugador: Jugador) {
     this.jugadorDetalle = jugador;
+
     const modalEl = document.getElementById('modalDetalleJugador');
     if (modalEl) {
       const modal = new (window as any).bootstrap.Modal(modalEl);

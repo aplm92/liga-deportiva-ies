@@ -22,7 +22,7 @@ describe('Jugadores', () => {
   it('should create', () => {
     fixture.detectChanges();
 
-    const req = httpMock.expectOne('http://localhost:3000/api/jugadores');
+    const req = httpMock.expectOne('http://127.0.0.1:8000/api/jugadores');
     req.flush([]); // respuesta mock
 
     expect(component).toBeTruthy();

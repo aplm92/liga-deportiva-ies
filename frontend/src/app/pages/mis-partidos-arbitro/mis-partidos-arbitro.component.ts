@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PartidosService } from '../../services/partidos.service';
 import { Partido } from '../../models/partido.model';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-mis-partidos-arbitro',
@@ -13,45 +12,70 @@ export class MisPartidosArbitroComponent implements OnInit {
 
   partidos: Partido[] = [];
   cargando = true;
+  usuario: any;
 
-  constructor(private partidosService: PartidosService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private partidosService: PartidosService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-  const usuario = JSON.parse(localStorage.getItem('usuario')!);
 
-  this.partidosService.partidosArbitro(usuario._id)
-    .subscribe({
-      next: (data: any[]) => {
-        // Convertir fecha a Date para el pipe
-        this.partidos = data.map(p => ({
-          ...p,
-          fecha: new Date(p.fecha),
-          resultadoLocal: p.resultadoLocal ?? null,
-          resultadoVisitante: p.resultadoVisitante ?? null
-        }));
-        this.cargando = false;
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error cargando partidos', err);
-        this.cargando = false;
-      }
-    });
-}
+    const usuarioStorage = localStorage.getItem('usuario');
 
+    if (!usuarioStorage) {
+      this.cargando = false;
+      return;
+    }
 
-  actualizarPartido(partido: Partido) {
-    if (!partido._id) return;
+    this.usuario = JSON.parse(usuarioStorage);
 
-    this.partidosService.actualizarPartido(partido._id, partido)
+    this.cargar();
+  }
+
+  cargar(): void {
+    this.cargando = true;
+
+    this.partidosService.partidosArbitro(this.usuario.id)
       .subscribe({
-        next: () => {
-          alert('Partido actualizado correctamente');
+        next: (data: Partido[]) => {
+
+          this.partidos = data ?? [];
+
+          this.cargando = false;
           this.cd.detectChanges();
         },
         error: (err) => {
-          console.error('Error al actualizar partido', err);
+          console.error('Error cargando partidos', err);
+          this.partidos = [];
+          this.cargando = false;
         }
+      });
+  }
+
+  actualizarPartido(partido: Partido): void {
+
+    if (!partido.id) return;
+
+    // validación básica
+    if (
+      partido.resultado_local == null ||
+      partido.resultado_visitante == null
+    ) {
+      alert('Introduce ambos resultados');
+      return;
+    }
+
+    const payload = {
+      resultado_local: partido.resultado_local,
+      resultado_visitante: partido.resultado_visitante,
+      estado: 'finalizado'
+    };
+
+    this.partidosService.actualizarPartido(partido.id, payload)
+      .subscribe({
+        next: () => this.cargar(),
+        error: (err) => console.error(err)
       });
   }
 }

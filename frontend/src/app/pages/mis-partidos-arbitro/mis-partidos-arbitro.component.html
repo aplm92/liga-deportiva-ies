@@ -1,4 +1,5 @@
 <div class="container mt-4">
+
   <h2 class="mb-4">Mis partidos asignados</h2>
 
   <div *ngIf="cargando" class="alert alert-info">
@@ -10,42 +11,74 @@
   </div>
 
   <div *ngIf="!cargando && partidos.length > 0" class="table-responsive">
+
     <table class="table table-striped table-hover">
+
       <thead>
         <tr>
-          <th>Deporte</th>
+          <th>Liga</th>
           <th>Equipos</th>
           <th>Fecha</th>
-          <th>Ubicación</th>
+          <th>Árbitro</th>
           <th>Resultado</th>
-          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
+
       <tbody>
+
         <tr *ngFor="let p of partidos">
-          <td>{{ p.deporte }}</td>
-          <td>{{ p.equipoLocal }} vs {{ p.equipoVisitante }}</td>
+
+          <td>{{ p.liga?.nombre || 'Sin liga' }}</td>
+
+          <!-- 🔥 FIX CLAVE -->
+          <td>
+            {{ p.club_local?.nombre || 'Sin equipo' }}
+            vs
+            {{ p.club_visitante?.nombre || 'Sin equipo' }}
+          </td>
+
           <td>{{ p.fecha | date:'short' }}</td>
-          <td>{{ p.ubicacion }}</td>
-          <td>
-            <input type="number" class="form-control d-inline w-25"
-                   [(ngModel)]="p.resultadoLocal"> -
-            <input type="number" class="form-control d-inline w-25"
-                   [(ngModel)]="p.resultadoVisitante">
+
+          <td>{{ p.arbitro?.name || 'Sin árbitro' }}</td>
+
+          <!-- ✅ RESULTADO CORREGIDO -->
+          <td class="d-flex gap-2 align-items-center">
+
+            <input
+              type="number"
+              class="form-control"
+              style="width: 70px"
+              [(ngModel)]="p.resultado_local"
+              [disabled]="p.estado === 'finalizado'"
+              placeholder="0">
+
+            <span>-</span>
+
+            <input
+              type="number"
+              class="form-control"
+              style="width: 70px"
+              [(ngModel)]="p.resultado_visitante"
+              [disabled]="p.estado === 'finalizado'"
+              placeholder="0">
+
           </td>
+
           <td>
-            <span class="badge bg-warning" *ngIf="p.estado === 'pendiente'">Pendiente</span>
-            <span class="badge bg-success" *ngIf="p.estado === 'finalizado'">Finalizado</span>
-            <span class="badge bg-danger" *ngIf="p.estado === 'revision'">Revisión</span>
-          </td>
-          <td>
-            <button class="btn btn-sm btn-primary" (click)="actualizarPartido(p)">
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="actualizarPartido(p)"
+              [disabled]="p.estado === 'finalizado'">
               Guardar
             </button>
           </td>
+
         </tr>
+
       </tbody>
+
     </table>
+
   </div>
 </div>

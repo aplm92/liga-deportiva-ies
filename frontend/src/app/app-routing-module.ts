@@ -4,7 +4,7 @@ import { Home } from './pages/home/home';
 import { Equipos } from './pages/equipos/equipos';
 import { LoginComponent } from './pages/auth/login/login';
 import { Clasificaciones } from './pages/clasificaciones/clasificaciones';
-import { Resultados } from './pages/resultados/resultados';
+import { ResultadosComponent } from './pages/resultados/resultados';
 import { Jugadores } from './pages/jugadores/jugadores';
 import { Arbitros } from './pages/arbitros/arbitros';
 import { Contacto } from './pages/contacto/contacto';
@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'clasificaciones', component: Clasificaciones },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'resultados', component: Resultados },
+  { path: 'resultados', component: ResultadosComponent },
   { path: 'jugadores', component: Jugadores },
   { path: 'arbitros', component: Arbitros },
   { path: 'mis-partidos-arbitro', component: MisPartidosArbitroComponent},
@@ -28,6 +28,7 @@ export const routes: Routes = [
   { path: 'lista-partidos', component: ListaPartidosComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'jugadores/crear', component: JugadoresCrear },
+  { path: 'partidos', component: ListaPartidosComponent }
 ];
 
 @NgModule({

@@ -1,62 +1,30 @@
 <div class="container mt-4">
+
   <h2>Equipos</h2>
 
-  <div class="row mb-3">
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Buscar equipo..." [(ngModel)]="busqueda">
-    </div>
-    <div class="col-md-4">
-      <select class="form-select" [(ngModel)]="filtroCompeticion">
-        <option value="">Todas las competiciones</option>
-        <option *ngFor="let comp of ['Futbol','Baloncesto','Balonmano','Voleibol','Tenis','Atletismo','Natacion','Padel']">
-          {{ comp }}
-        </option>
-      </select>
-    </div>
-  </div>
+  <input type="text" [(ngModel)]="busqueda" (input)="aplicarFiltros()" placeholder="Pincha aquí para buscar y ver los equipos" class="form-control mb-3">
 
   <div class="row">
-    <div class="col-md-4 mb-3" *ngFor="let id of Object.keys(equiposFiltrados)">
-      <div class="card h-100">
-        <img [src]="imagenesDeportes[equiposFiltrados[id].competicion.toLowerCase()]" class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title">{{ equiposFiltrados[id].nombre }}</h5>
-          <p><strong>Competición:</strong> {{ equiposFiltrados[id].competicion }}</p>
-          <p><strong>Capitán:</strong> {{ equiposFiltrados[id].capitan }}</p>
-          <button class="btn btn-primary" (click)="mostrarDetalle(id)">Ver detalle</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <div class="col-md-4 mb-3" *ngFor="let equipo of equiposFiltrados">
 
-<!-- Modal Detalle Equipo -->
-<div class="modal fade" id="equipoModal" tabindex="-1" aria-labelledby="equipoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content" *ngIf="equipoDetalle">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ equipoDetalle.nombre }} - {{ equipoDetalle.competicion }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="card p-3">
+        <h4>{{ equipo.nombre }}</h4>
+
+        <p><strong>Ciudad:</strong> {{ equipo.ciudad }}</p>
+        <p><strong>Competición:</strong> {{ equipo.competicion }}</p>
+        <p><strong>Capitán:</strong> {{ equipo.capitan }}</p>
+
+        <hr>
+
+        <p><strong>Jugadores:</strong> {{ equipo.totalJugadores }}</p>
+        <p><strong>PJ:</strong> {{ equipo.partidosJugados }}</p>
+        <p><strong>PG:</strong> {{ equipo.partidosGanados }}</p>
+        <p><strong>PE:</strong> {{ equipo.partidosEmpatados }}</p>
+        <p><strong>PP:</strong> {{ equipo.partidosPerdidos }}</p>
+
       </div>
-      <div class="modal-body">
-        <p><strong>Capitán:</strong> {{ equipoDetalle.capitan }}</p>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Posición</th>
-              <th>Número</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let j of equipoDetalle.jugadores">
-              <td>{{ j.nombre }}</td>
-              <td>{{ j.posicion }}</td>
-              <td>{{ j.numero }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
     </div>
   </div>
+
 </div>

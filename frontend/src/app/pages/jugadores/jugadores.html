@@ -1,153 +1,100 @@
-<div class="container my-5">
-  <h1 class="text-center mb-5">Jugadores</h1>
+<div class="container mt-4">
 
-  <!-- Filtros -->
-  <div class="row mb-4 g-3">
+  <h2 class="mb-4">Jugadores</h2>
+
+  <!-- 🔎 FILTROS -->
+  <div class="row mb-4">
+
     <div class="col-md-4">
-      <label for="filtroCompeticion" class="form-label">Filtrar por competición</label>
-      <select id="filtroCompeticion" class="form-select" [(ngModel)]="filtroCompeticion">
-        <option value="">Todas</option>
-        <option value="Fútbol">Fútbol</option>
-        <option value="Baloncesto">Baloncesto</option>
-        <option value="Balonmano">Balonmano</option>
-        <option value="Voleibol">Voleibol</option>
-        <option value="Tenis">Tenis</option>
-        <option value="Atletismo">Atletismo</option>
-        <option value="Natación">Natación</option>
-        <option value="Pádel">Pádel</option>
-      </select>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar por nombre"
+        [(ngModel)]="busqueda">
     </div>
 
     <div class="col-md-4">
-      <label for="filtroEquipo" class="form-label">Filtrar por equipo</label>
-      <input type="text" id="filtroEquipo" class="form-control" placeholder="Nombre del equipo" [(ngModel)]="filtroEquipo">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por equipo"
+        [(ngModel)]="filtroEquipo">
     </div>
 
     <div class="col-md-4">
-      <label for="buscarJugador" class="form-label">Buscar jugador</label>
-      <input type="text" id="buscarJugador" class="form-control" placeholder="Nombre del jugador" [(ngModel)]="busqueda">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por competición"
+        [(ngModel)]="filtroCompeticion">
     </div>
+
   </div>
 
-  <!-- Cards de jugadores -->
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let jugador of jugadoresFiltrados">
-      <div class="card h-100 jugador-card">
-        <div class="card-body">
-          <h5 class="card-title">{{ jugador.nombre }}</h5>
-          <p class="card-text"><strong>Equipo:</strong> {{ jugador.equipo }}</p>
-          <p class="card-text"><strong>Competición:</strong> {{ jugador.competicion }}</p>
-          <p class="card-text"><strong>Posición:</strong> {{ jugador.posicion }}</p>
-          <p class="card-text"><strong>Número:</strong> {{ jugador.numero }}</p>
+  <!-- 📋 TABLA -->
+  <table class="table table-striped table-hover" *ngIf="jugadoresFiltrados.length > 0">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Posición</th>
+        <th>Dorsal</th>
+        <th>Equipo</th>
+        <th>Competición</th>
+        <th></th>
+      </tr>
+    </thead>
 
-          <button class="btn btn-primary" (click)="mostrarDetalle(jugador)">
-            Ver Detalles
+    <tbody>
+      <tr *ngFor="let jugador of jugadoresFiltrados">
+        <td>{{ jugador.nombre }}</td>
+        <td>{{ jugador.posicion }}</td>
+        <td>{{ jugador.dorsal }}</td>
+        <td>{{ jugador.equipo }}</td>
+        <td>{{ jugador.competicion }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary"
+                  (click)="mostrarDetalle(jugador)">
+            Ver detalle
           </button>
-        </div>
-      </div>
-    </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ❌ SIN DATOS -->
+  <div *ngIf="jugadoresFiltrados.length === 0" class="text-center mt-4">
+    <p>No hay jugadores disponibles</p>
   </div>
+
 </div>
 
-<!-- Modal detalle jugador -->
-<div class="modal fade" id="modalDetalleJugador" tabindex="-1" aria-labelledby="modalJugadorTitulo" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="modalJugadorTitulo">{{ jugadorDetalle?.nombre }}</h5>
+<!-- 🧑 MODAL DETALLE -->
+<div class="modal fade" id="modalDetalleJugador" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="jugadorDetalle">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ jugadorDetalle.nombre }}
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
-        <div *ngIf="jugadorDetalle">
-          <div class="row">
-            <div class="col-md-6">
-              <h6>Información Personal</h6>
-              <p><strong>Equipo:</strong> {{ jugadorDetalle.equipo }}</p>
-              <p><strong>Competición:</strong> {{ jugadorDetalle.competicion }}</p>
-              <p><strong>Posición:</strong> {{ jugadorDetalle.posicion }}</p>
-              <p><strong>Número:</strong> {{ jugadorDetalle.numero }}</p>
-              <p><strong>Edad:</strong> {{ jugadorDetalle.edad }} años</p>
-              <p><strong>Email:</strong> {{ jugadorDetalle.email }}</p>
-            </div>
 
-            <div class="col-md-6">
-              <h6>Estadísticas</h6>
+        <p><strong>Posición:</strong> {{ jugadorDetalle.posicion }}</p>
+        <p><strong>Dorsal:</strong> {{ jugadorDetalle.dorsal }}</p>
+        <p><strong>Equipo:</strong> {{ jugadorDetalle.equipo }}</p>
+        <p><strong>Competición:</strong> {{ jugadorDetalle.competicion }}</p>
 
-              <ng-container [ngSwitch]="jugadorDetalle.competicion">
-
-                <div *ngSwitchCase="'Fútbol'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
-                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias || 0 }}</p>
-                  <p><strong>Tarjetas Amarillas:</strong> {{ jugadorDetalle.tarjetasAmarillas || 0 }}</p>
-                  <p><strong>Tarjetas Rojas:</strong> {{ jugadorDetalle.tarjetasRojas || 0 }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Baloncesto'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
-                  <p><strong>Rebotes:</strong> {{ jugadorDetalle.rebotes }}</p>
-                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
-                  <p><strong>Puntos por Partido:</strong> {{ (jugadorDetalle.puntos! / jugadorDetalle.partidosJugados!).toFixed(1) }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Balonmano'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Goles:</strong> {{ jugadorDetalle.goles || 0 }}</p>
-                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias || 0 }}</p>
-                  <p><strong>Paradas:</strong> {{ jugadorDetalle.paradas || 0 }}</p>
-                  <p><strong>Goles Recibidos:</strong> {{ jugadorDetalle.golesRecibidos || 0 }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Voleibol'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Sets:</strong> {{ jugadorDetalle.sets }}</p>
-                  <p><strong>Puntos:</strong> {{ jugadorDetalle.puntos }}</p>
-                  <p><strong>Asistencias:</strong> {{ jugadorDetalle.asistencias }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Tenis'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
-                  <p><strong>Derrotas:</strong> {{ jugadorDetalle.derrotas }}</p>
-                  <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
-                  <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Atletismo'">
-                  <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Medallas Oro:</strong> {{ jugadorDetalle.medallasOro }}</p>
-                  <p><strong>Medallas Plata:</strong> {{ jugadorDetalle.medallasPlata }}</p>
-                  <p><strong>Medallas Bronce:</strong> {{ jugadorDetalle.medallasBronce }}</p>
-                  <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Natación'">
-                  <p><strong>Competiciones:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
-                  <p><strong>Medallas Oro:</strong> {{ jugadorDetalle.medallasOro }}</p>
-                  <p><strong>Medallas Plata:</strong> {{ jugadorDetalle.medallasPlata }}</p>
-                  <p><strong>Mejor Tiempo:</strong> {{ jugadorDetalle.mejorTiempo }}</p>
-                </div>
-
-                <div *ngSwitchCase="'Pádel'">
-                  <p><strong>Partidos Jugados:</strong> {{ jugadorDetalle.partidosJugados }}</p>
-                  <p><strong>Victorias:</strong> {{ jugadorDetalle.victorias }}</p>
-                  <p><strong>Derrotas:</strong> {{ jugadorDetalle.derrotas }}</p>
-                  <p><strong>Sets Ganados:</strong> {{ jugadorDetalle.setsGanados }}</p>
-                  <p><strong>Sets Perdidos:</strong> {{ jugadorDetalle.setsPerdidos }}</p>
-                </div>
-
-              </ng-container>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
       </div>
+
     </div>
   </div>
 </div>

@@ -13,7 +13,14 @@ class Club extends Model
     protected $fillable = [
         'nombre',
         'ciudad',
-        'categoria'
+        'categoria',
+        'competicion',
+        'capitan',
+        'totalJugadores',
+        'partidosJugados',
+        'partidosGanados',
+        'partidosEmpatados',
+        'partidosPerdidos'
     ];
 
     public function jugadores()

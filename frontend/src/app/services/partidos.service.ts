@@ -8,41 +8,45 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class PartidosService {
-  private baseUrl = 'http://localhost:3000/api/partidos';
-  private apiUrl = environment.apiUrl;
+
+  private baseUrl = `${environment.apiUrl}/partidos`;
 
   constructor(private http: HttpClient) {}
 
-  /** Todos los partidos */
+  /** TODOS LOS PARTIDOS */
   getPartidos(): Observable<Partido[]> {
     return this.http.get<Partido[]>(this.baseUrl);
   }
 
-  /** Partidos de un equipo (local o visitante) */
+  /** PARTIDOS POR EQUIPO */
   partidosEquipo(equipo: string): Observable<Partido[]> {
-    const url = `${this.baseUrl}/equipo/${encodeURIComponent(equipo)}`;
-    return this.http.get<Partido[]>(url);
+    return this.http.get<Partido[]>(
+      `${this.baseUrl}/equipo/${encodeURIComponent(equipo)}`
+    );
   }
 
-  /** Partidos asignados a un árbitro */
-  partidosArbitro(arbitroId: string): Observable<Partido[]> {
-    const url = `${this.baseUrl}/arbitro/${encodeURIComponent(arbitroId)}`;
-    return this.http.get<Partido[]>(url);
+  /** PARTIDOS POR ÁRBITRO */
+  partidosArbitro(arbitroId: number | string): Observable<Partido[]> {
+    return this.http.get<Partido[]>(
+      `${this.baseUrl}/arbitro/${encodeURIComponent(String(arbitroId))}`
+    );
   }
 
-  /** Enviar resultado (capitán) */
-  enviarResultado(partidoId: string, resultadoLocal: number, resultadoVisitante: number): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${partidoId}/resultado`, { resultadoLocal, resultadoVisitante });
+  /** CREAR PARTIDO (ADMIN) */
+  crearPartido(data: Partial<Partido>): Observable<Partido> {
+    return this.http.post<Partido>(this.baseUrl, data);
   }
 
-  /** Actualizar partido (admin o árbitro) */
-  actualizarPartido(partidoId: string, partido: Partido): Observable<Partido> {
-    return this.http.put<Partido>(`${this.baseUrl}/${partidoId}`, partido);
+  /** ACTUALIZAR PARTIDO */
+  actualizarPartido(id: number, data: Partial<Partido>): Observable<Partido> {
+    return this.http.put<Partido>(`${this.baseUrl}/${id}`, data);
   }
 
-  /** Crear un nuevo partido (admin) */
-  crearPartido(partido: Partido): Observable<Partido> {
-  return this.http.post<Partido>(this.baseUrl, partido);
+  /** ENVIAR RESULTADO */
+  enviarResultado(id: number, resultado: string): Observable<any> {
+    return this.http.put(
+      `${this.baseUrl}/${id}/resultado`,
+      { resultado }
+    );
   }
-
 }

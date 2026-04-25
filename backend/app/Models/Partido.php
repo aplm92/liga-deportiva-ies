@@ -4,11 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Club;
-use App\Models\Liga;
 
 class Partido extends Model
 {
+    use HasFactory;
+
+    protected $fillable = [
+        'liga_id',
+        'club_local_id',
+        'club_visitante_id',
+        'arbitro_id',
+        'fecha',
+        'resultado_local',
+        'resultado_visitante',
+        'estado'
+    ];
+
+    protected $with = [
+        'liga',
+        'clubLocal',
+        'clubVisitante',
+        'arbitro'
+    ];
+
     public function liga()
     {
         return $this->belongsTo(Liga::class);
@@ -23,5 +41,9 @@ class Partido extends Model
     {
         return $this->belongsTo(Club::class, 'club_visitante_id');
     }
-}
 
+    public function arbitro()
+    {
+        return $this->belongsTo(User::class, 'arbitro_id');
+    }
+}

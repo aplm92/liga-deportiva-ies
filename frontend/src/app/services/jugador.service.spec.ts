@@ -37,7 +37,7 @@ describe('JugadorService (Integración HTTP)', () => {
       expect(jugadores).toEqual(mockJugadores);
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/api/jugadores');
+    const req = httpMock.expectOne('http://127.0.0.1:8000/api/jugadores');
     expect(req.request.method).toBe('GET');
 
     req.flush(mockJugadores);
@@ -59,7 +59,7 @@ describe('JugadorService (Integración HTTP)', () => {
       expect(jugador).toEqual(nuevoJugador);
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/api/jugadores');
+    const req = httpMock.expectOne('http://127.0.0.1:8000/api/jugadores');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(nuevoJugador);
 
@@ -74,7 +74,7 @@ describe('JugadorService (Integración HTTP)', () => {
       }
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/api/jugadores');
+    const req = httpMock.expectOne('http://127.0.0.1:8000/api/jugadores');
     req.flush('Error interno', { status: 500, statusText: 'Server Error' });
   });
 });

@@ -22,14 +22,12 @@ class ClubController extends Controller
         $request->validate([
             'nombre' => 'required',
             'ciudad' => 'required',
-            'categoria' => 'required'
+            'categoria' => 'required',
+            'competicion' => 'required',
+            'capitan' => 'required'
         ]);
 
-        return Club::create($request->only([
-        'nombre',
-        'ciudad',
-        'categoria'
-        ]));
+        return Club::create($request->all());
     }
 
     public function update(Request $request, $id)

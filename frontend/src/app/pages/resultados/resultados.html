@@ -1,56 +1,80 @@
+<div class="container mt-4">
 
-<main class="container my-5 pt-4">
-  <h1 class="text-center mb-4">Resultados</h1>
+  <h2 class="mb-3">Resultados</h2>
 
-  <!-- Filtros -->
-  <div class="filter-section mb-4">
-    <div class="row">
-      <div class="col-md-6">
-        <label class="form-label">Filtrar por Competición</label>
-        <select class="form-select" [(ngModel)]="filtroCompeticion" (change)="filtrarResultados()">
-          <option value="">Todas las competiciones</option>
-          <option value="balonmano">Balonmano</option>
-          <option value="futbol">Fútbol</option>
-          <option value="baloncesto">Baloncesto</option>
-          <option value="voleibol">Voleibol</option>
-          <option value="tenis">Tenis</option>
-          <option value="atletismo">Atletismo</option>
-          <option value="natacion">Natación</option>
-          <option value="padel">Pádel</option>
-        </select>
-      </div>
+  <!-- FILTROS -->
+  <div class="row mb-3">
 
-      <div class="col-md-6 mt-3 mt-md-0">
-        <label class="form-label">Filtrar por Jornada</label>
-        <select class="form-select" [(ngModel)]="filtroJornada" (change)="filtrarResultados()">
-          <option value="">Todas las jornadas</option>
-          <option *ngFor="let j of [1,2,3,4,5,6,7,8]" [value]="j">Jornada {{ j }}</option>
-        </select>
-      </div>
+    <div class="col-md-12">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por liga"
+        [(ngModel)]="filtroLiga"
+        (ngModelChange)="filtrarResultados()">
     </div>
+
   </div>
 
-  <!-- Resultados -->
-  <div *ngFor="let r of resultadosFiltrados" class="resultado-section mb-4">
-    <h3 class="mb-3">Jornada {{ r.jornada }} - {{ r.competicion | titlecase }}</h3>
+  <!-- LISTA DE RESULTADOS -->
+  <div *ngIf="resultadosFiltrados.length > 0; else sinDatos">
 
-    <div class="table-responsive" *ngIf="r.tabla && r.tabla.length > 0">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th *ngFor="let col of r.columnas">{{ col }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let fila of r.tabla">
-            <td *ngFor="let col of r.columnas">{{ fila[col] }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card mb-3 shadow-sm" *ngFor="let r of resultadosFiltrados">
+
+      <div class="card-body">
+
+        <!-- CABECERA -->
+        <h5 class="card-title">
+          {{ r.liga?.nombre || 'Sin liga' }}
+        </h5>
+
+        <hr>
+
+        <!-- PARTIDO -->
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div class="text-end w-40">
+            <strong>{{ r.clubLocal?.nombre || 'Sin equipo' }}</strong>
+          </div>
+
+          <div class="text-center w-20">
+            <span class="badge bg-dark fs-6">
+              {{ r.resultado_local ?? '-' }} - {{ r.resultado_visitante ?? '-' }}
+            </span>
+          </div>
+
+          <div class="text-start w-40">
+            <strong>{{ r.clubVisitante?.nombre || 'Sin equipo' }}</strong>
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- INFO EXTRA -->
+        <div class="d-flex justify-content-between">
+
+          <small class="text-muted">
+            📅 {{ r.fecha || 'Sin fecha' }}
+          </small>
+
+          <small class="text-muted">
+            🧑‍⚖️ Árbitro: {{ r.arbitro?.name || 'Sin árbitro' }}
+          </small>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <div *ngIf="!r.tabla || r.tabla.length === 0" class="alert alert-warning">
-      No hay resultados para esta jornada.
-    </div>
   </div>
-</main>
+
+  <!-- SI NO HAY RESULTADOS -->
+  <ng-template #sinDatos>
+    <div class="alert alert-info">
+      No hay resultados para mostrar
+    </div>
+  </ng-template>
+
+</div>

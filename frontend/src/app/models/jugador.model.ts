@@ -3,7 +3,7 @@ export interface Jugador {
   equipo: string;
   competicion: string;
   posicion: string;
-  numero: number;
+  dorsal: number;
   edad: number;
   partidosJugados: number;
   goles?: number;

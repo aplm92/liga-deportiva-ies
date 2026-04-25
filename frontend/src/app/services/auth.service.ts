@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface Usuario {
-  _id?: string;
+  _id?: number;
   nombre: string;
   email: string;
   tipo: string;
@@ -15,16 +15,16 @@ export interface Usuario {
 })
 export class AuthService {
 
-  private url = 'http://localhost:3000/api/usuarios';
-  private apiUrl = environment.apiUrl;
+  private baseUrl = `${environment.apiUrl}/usuarios`;
 
   constructor(private http: HttpClient) {}
 
   register(nombre: string, email: string, password: string, tipo: string): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.url}/register`, { nombre, email, password, tipo });
+    console.log({ nombre, email, password, tipo }); // 👈 IMPORTANTE
+    return this.http.post<Usuario>(`${this.baseUrl}/register`, { nombre, email, password, tipo });
   }
 
   login(email: string, password: string): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.url}/login`, { email, password });
+    return this.http.post<Usuario>(`${this.baseUrl}/login`, { email, password });
   }
 }

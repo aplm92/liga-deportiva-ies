@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 class JugadorController extends Controller
 {
     public function index()
-    {
-        return Jugador::with('club')->get();
-    }
+{
+    return Jugador::with('club')->get()->map(function ($j) {
+        return [
+            'id' => $j->id,
+            'nombre' => $j->nombre,
+            'posicion' => $j->posicion,
+            'dorsal' => $j->dorsal,
+
+            'equipo' => $j->club?->nombre ?? 'Sin equipo',
+            'competicion' => $j->club?->competicion ?? 'Sin competición'
+        ];
+    });
+}
 
     public function store(Request $request)
     {

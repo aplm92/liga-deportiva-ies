@@ -1,50 +1,21 @@
-<div class="row">
-  <div class="col-md-4 mb-3"
-       *ngFor="let arbitro of arbitros">
+<div class="container mt-4">
 
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ arbitro.nombre }}</h5>
+  <h2>Árbitros</h2>
 
-        <p class="card-text">
-          {{ arbitro.competicion }} · {{ arbitro.categoria }}
-        </p>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let a of arbitros">
 
-        <button class="btn btn-primary"
-                (click)="mostrarDetalle(arbitro)">
+      <div class="card p-3">
+        <h5>{{ a.nombre }}</h5>
+        <p><strong>Email:</strong> {{ a.email }}</p>
+        <p><strong>Categoría:</strong> {{ a.categoria }}</p>
+
+        <button class="btn btn-primary" (click)="mostrarDetalle(a)">
           Ver detalle
         </button>
       </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="modal fade" id="modalDetalleArbitro" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {{ arbitroSeleccionado?.nombre }}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body" *ngIf="arbitroSeleccionado">
-        <p><strong>Competición:</strong> {{ arbitroSeleccionado.competicion }}</p>
-        <p><strong>Experiencia:</strong> {{ arbitroSeleccionado.experiencia }} años</p>
-        <p><strong>Email:</strong> {{ arbitroSeleccionado.email }}</p>
-
-        <h6>Certificaciones</h6>
-        <ul class="list-group">
-          <li class="list-group-item"
-              *ngFor="let cert of arbitroSeleccionado.certificaciones">
-            <i class="bi bi-award me-2"></i>{{ cert }}
-          </li>
-        </ul>
-      </div>
 
     </div>
   </div>
+
 </div>

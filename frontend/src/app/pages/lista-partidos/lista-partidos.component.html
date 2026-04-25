@@ -1,46 +1,92 @@
 <div class="container mt-4">
-  <h2>{{usuario.nombre}} - Partidos de tu equipo: {{usuario.equipo}}</h2>
 
+  <h2>{{ usuario?.name || usuario?.nombre }} - Partidos</h2>
+
+  <!-- Cargando -->
   <div *ngIf="cargando" class="alert alert-info">
-    Cargando partidos..
+    Cargando partidos...
   </div>
 
+  <!-- Sin partidos -->
   <div *ngIf="!cargando && partidos.length === 0" class="alert alert-warning">
     No hay partidos disponibles.
   </div>
 
+  <!-- Lista -->
   <div *ngFor="let partido of partidos" class="card mb-3">
+
     <div class="card-body">
-      <h5 class="card-title">{{ partido.equipoLocal }} vs {{ partido.equipoVisitante }}</h5>
+
+      <!-- FECHA -->
       <p><strong>Fecha:</strong> {{ partido.fecha | date:'short' }}</p>
-      <p><strong>Lugar:</strong> {{ partido.ubicacion }}</p>
-      <p><strong>Deporte:</strong> {{ partido.deporte }}</p>
-      <p><strong>Árbitro:</strong> {{ partido.arbitroId }}</p>
 
-      <!-- Solo los capitanes pueden introducir resultados -->
-      <div *ngIf="usuario.tipo === 'capitan'" class="mt-2">
-        <div class="row g-2 align-items-center">
-          <div class="col-auto">
-            <input type="number" [(ngModel)]="partido.resultadoLocal" class="form-control" placeholder="Local">
-          </div>
-          <div class="col-auto">
-            <input type="number" [(ngModel)]="partido.resultadoVisitante" class="form-control" placeholder="Visitante">
-          </div>
-          <div class="col-auto">
-            <button class="btn btn-success" (click)="enviarResultado(partido)">Enviar Resultado</button>
-          </div>
-        </div>
+      <!-- LIGA -->
+      <p>
+        <strong>Liga:</strong> {{ partido.liga?.nombre || 'Sin liga' }}
+      </p>
+
+      <!-- EQUIPOS -->
+      <p>
+        <strong>Equipos:</strong>
+        {{ partido.club_local?.nombre || 'Sin equipo' }}
+        vs
+        {{ partido.club_visitante?.nombre || 'Sin equipo' }}
+      </p>
+
+      <!-- ÁRBITRO -->
+      <p>
+        <strong>Árbitro:</strong>
+        {{ partido.arbitro?.name || 'Sin asignar' }}
+      </p>
+
+      <!-- RESULTADO -->
+      <div class="mt-3 d-flex align-items-center gap-2">
+
+        <input
+          type="number"
+          class="form-control"
+          style="width: 80px"
+          [(ngModel)]="partido.resultado_local"
+          [disabled]="partido.estado === 'finalizado'"
+          placeholder="0"
+        >
+
+        <span>-</span>
+
+        <input
+          type="number"
+          class="form-control"
+          style="width: 80px"
+          [(ngModel)]="partido.resultado_visitante"
+          [disabled]="partido.estado === 'finalizado'"
+          placeholder="0"
+        >
+
       </div>
 
-      <div *ngIf="partido.resultadoLocal !== null && partido.resultadoVisitante !== null" class="mt-2">
-        <p><strong>Resultado oficial:</strong> {{ partido.resultadoLocal }} - {{ partido.resultadoVisitante }}</p>
+      <!-- BOTÓN -->
+      <button
+        *ngIf="usuario?.tipo === 'capitan'"
+        class="btn btn-success mt-2"
+        (click)="enviarResultado(partido)"
+        [disabled]="partido.estado === 'finalizado'">
+        Enviar resultado
+      </button>
+
+      <!-- ESTADO -->
+      <div class="mt-2">
+
+        <span class="badge bg-warning" *ngIf="partido.estado !== 'finalizado'">
+          Pendiente
+        </span>
+
+        <span class="badge bg-success" *ngIf="partido.estado === 'finalizado'">
+          {{ partido.resultado_local }} - {{ partido.resultado_visitante }}
+        </span>
+
       </div>
 
-      <div class="mt-1">
-        <span class="badge bg-warning" *ngIf="partido.estado === 'pendiente'">Pendiente</span>
-        <span class="badge bg-success" *ngIf="partido.estado === 'finalizado'">Finalizado</span>
-        <span class="badge bg-danger" *ngIf="partido.estado === 'revision'">Revisión</span>
-      </div>
     </div>
   </div>
+
 </div>

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PartidosService } from '../../services/partidos.service';
 import { Partido } from '../../models/partido.model';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -11,91 +10,89 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  // Lista de partidos
   partidos: Partido[] = [];
 
-  // Nuevo partido
-  nuevoPartido: Omit<Partido, '_id' | 'resultadoLocal' | 'resultadoVisitante' | 'estado'> = {
-    deporte: '',
-    equipoLocal: '',
-    equipoVisitante: '',
-    arbitroId: '',
+  nuevoPartido: Partial<Partido> = {
+    liga_id: 0,
+    club_local_id: 0,
+    club_visitante_id: 0,
+    arbitro_id: null,
     fecha: '',
-    ubicacion: ''
+    estado: 'pendiente'
   };
 
-  constructor(private partidosService: PartidosService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private partidosService: PartidosService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.cargarPartidos();
   }
 
-  // 📥 Obtener partidos
-  cargarPartidos() {
+  // ======================
+  // CARGAR
+  // ======================
+  cargarPartidos(): void {
     this.partidosService.getPartidos().subscribe({
       next: (data: Partido[]) => {
-        console.log('Partidos recibidos:', data);
-
-        // Mantener fecha como string y asignar valores por defecto
-        this.partidos = data.map(p => ({
-          ...p,
-          resultadoLocal: p.resultadoLocal ?? null,
-          resultadoVisitante: p.resultadoVisitante ?? null,
-          estado: p.estado ?? 'pendiente'
-        }));
+        this.partidos = data ?? [];
         this.cd.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al cargar partidos', err);
-      }
+      error: (err) => console.error('Error cargando partidos', err)
     });
   }
 
-  // Crear partido
-  crearPartido() {
-    const partido: Partido = {
-      ...this.nuevoPartido,
-      resultadoLocal: null,
-      resultadoVisitante: null,
+  // ======================
+  // CREAR
+  // ======================
+  crearPartido(): void {
+
+    const payload: Partial<Partido> = {
+      liga_id: Number(this.nuevoPartido.liga_id),
+      club_local_id: Number(this.nuevoPartido.club_local_id),
+      club_visitante_id: Number(this.nuevoPartido.club_visitante_id),
+
+      arbitro_id: this.nuevoPartido.arbitro_id
+        ? Number(this.nuevoPartido.arbitro_id)
+        : null,
+
+      fecha: this.nuevoPartido.fecha ?? '',
       estado: 'pendiente'
     };
 
-    this.partidosService.crearPartido(partido).subscribe({
+    this.partidosService.crearPartido(payload).subscribe({
       next: () => {
-        alert('Partido creado correctamente');
         this.cargarPartidos();
 
-        // Limpiar formulario
         this.nuevoPartido = {
-          deporte: '',
-          equipoLocal: '',
-          equipoVisitante: '',
-          arbitroId: '',
+          liga_id: 0,
+          club_local_id: 0,
+          club_visitante_id: 0,
+          arbitro_id: null,
           fecha: '',
-          ubicacion: ''
+          estado: 'pendiente'
         };
-        this.cd.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al crear partido', err);
-      }
+      error: (err) => console.error('Error creando partido', err)
     });
   }
 
-  // Actualizar partido (resultado, árbitro, fecha…)
-  actualizarPartido(partido: Partido) {
-    if (!partido._id) return;
+  // ======================
+  // ACTUALIZAR RESULTADO
+  // ======================
+  actualizarPartido(partido: Partido): void {
 
-    this.partidosService.actualizarPartido(partido._id, partido).subscribe({
-      next: () => {
-        alert('Partido actualizado');
-        this.cargarPartidos();
-        this.cd.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error al actualizar partido', err);
-      }
-    });
+    const payload: Partial<Partido> = {
+      resultado_local: partido.resultado_local,
+      resultado_visitante: partido.resultado_visitante,
+      estado: partido.estado
+    };
+
+    this.partidosService.actualizarPartido(partido.id!, payload)
+      .subscribe({
+        next: () => this.cargarPartidos(),
+        error: (err) => console.error('Error actualizando partido', err)
+      });
   }
-
 }
