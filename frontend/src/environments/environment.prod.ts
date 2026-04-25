@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://liga-deportiva-alberto-perez.onrender.com/api'
+  apiUrl: 'https://liga-deportiva-ies-front.onrender.com/api'
 };
