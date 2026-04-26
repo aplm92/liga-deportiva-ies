@@ -30,7 +30,7 @@ jobs:
       - name: Run Angular tests
         run: |
           cd frontend
-          npm test -- --watch=false
+          npm test
 
   # -------------------------
   # LARAVEL TESTS
