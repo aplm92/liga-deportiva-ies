@@ -50,6 +50,8 @@ ENV PORT=80
 EXPOSE 80
 
 # 12. START SEGURO (IMPORTANTE)
-CMD php artisan optimize && \
+CMD php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
     php artisan migrate --force || true && \
     apache2-foreground
